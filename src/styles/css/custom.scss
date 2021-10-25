@@ -1,0 +1,15 @@
+// Reference: https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss
+
+$min-contrast-ratio: 2.5;
+
+$theme-colors: (
+  "primary": #00A7B5,
+  "secondary": #FFFFFF
+);
+
+$color-contrast-dark: #00A7B5;
+
+$btn-active-bg-shade-amount: 0%;
+$btn-hover-bg-shade-amount: 0%;
+
+@import "~bootstrap/scss/bootstrap";
