@@ -23,12 +23,44 @@ const theme = createTheme({
     }
 });
 
+ // Because features come from tiled vector data, feature geometries may be split or duplicated across tile boundaries.
+// As a result, features may appear multiple times in query results.
+function getUniqueFeatures(features, comparatorProperty) {
+    const uniqueIds = new Set();
+    const uniqueFeatures = [];
+    for (const feature of features) {
+    const id = feature.properties[comparatorProperty];
+    if (!uniqueIds.has(id)) {
+    uniqueIds.add(id);
+    uniqueFeatures.push(feature);
+    }
+    }
+    return uniqueFeatures;
+}
+
+const ecoregions = require('./data/ecoregions.json')
+var postalcodes = require('./data/postalcodes.json')
+const idList = [0, 98, 99, 101, 107, 112, 124, 127, 128, 130, 132, 134, 135, 156, 157, 158, 159, 162, 188, 189, 191, 192, 193, 194, 195, 196, 202, 203, 205, 209, 210, 211]
+
+console.log(postalcodes.length)
+
+postalcodes = postalcodes.filter(obj => obj.FIELD2.split(', ').map(Number).some(r => idList.includes(r)))
+
+console.log(postalcodes.length)
+
+ecoregions.features = ecoregions.features.filter(item => {
+  if (idList.filter(id => id === item.properties.ECOREGION).length > 0) {
+    return item;
+  }
+})
+
 const App = () => {
 
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
 
-  const [geography, setGeography] = useState(1);
+  const [geography, setGeography] = useState([]);
+  const [codes, setCodes] = useState([])
   const map = useRef(null);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -48,12 +80,30 @@ const App = () => {
 
   }, [activeStep])
 
+  useEffect(() => {
+    var uniqueIds = []
+
+    if (codes.length > 0) {
+
+        for (var i in codes) {
+            uniqueIds = [...uniqueIds, ...codes[i].FIELD2.split(', ')].map(Number)
+        }
+
+        uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj))
+
+    }
+
+    setGeography(uniqueIds)
+    console.log(geography)
+
+}, [codes])
+
   let moduleContent;
 
   if (activeStep===0) {
     moduleContent = <Module1 Item={ Item }/>
   } else if (activeStep===1) {
-    moduleContent = <Module2 Item={ Item } activeStep={ activeStep } geography={ geography } setGeography={ setGeography } map={ map }/>
+    moduleContent = <Module2 Item={ Item } activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
   } else if (activeStep===2) {
     moduleContent = <Module3 Item={ Item } />
   } else if (activeStep===3) {

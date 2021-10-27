@@ -9,8 +9,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import CustomMap from './CustomMap.js'
+import SelectGeography from './SelectGeography.js'
 
-function Module2({ Item, activeStep, geography, setGeography, map }) {
+function Module2({ Item, activeStep, geography, setGeography, codes, setCodes, map, getUniqueFeatures, ecoregions, idList, postalcodes }) {
 
     return(
         <Container fluid>
@@ -22,13 +23,15 @@ function Module2({ Item, activeStep, geography, setGeography, map }) {
                                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
                                         Placeholder for Module 2
                                     </Typography>
+                                    <br></br>
+                                    <SelectGeography activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes }  map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
                                 </Item>
                         </Grid>
                     </Grid>
                 </Col>
                 <Col xs={12} md={9}>
                     <Paper>
-                        <CustomMap activeStep={ activeStep } geography={ geography } setGeography={ setGeography } map={ map } />
+                        <CustomMap activeStep={ activeStep } geography={ geography } setGeography={ setGeography } map={ map } ecoregions={ ecoregions } postalcodes={ postalcodes }/>
                     </Paper>
                 </Col>
             </Row>

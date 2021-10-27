@@ -6,18 +6,9 @@ const styles = {
   aspectRatio: "2"
 };
 
-const ecoregions = require('../data/ecoregions.json')
-const idList = [0, 98, 99, 101, 107, 112, 124, 127, 128, 130, 132, 134, 135, 156, 157, 158, 159, 162, 188, 189, 191, 192, 193, 194, 195, 196, 202, 203, 205, 209, 210, 211]
-
-ecoregions.features = ecoregions.features.filter(item => {
-  if (idList.filter(id => id === item.properties.ECOREGION).length > 0) {
-    return item;
-  }
-})
-
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJldHQ3NyIsImEiOiJja3QwanZ6NDQwNXl6MzJuMDdsanVtamY0In0.2ij5RMkF9AYtSSag_66tcQ";
 
-const CustomMap = ({ activeStep, geography, setGeography, map }) => {
+const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, postalcodes }) => {
   const mapContainer = useRef(null);
 
 //  console.log(mod1MapData)
