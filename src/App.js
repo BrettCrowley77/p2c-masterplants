@@ -97,9 +97,9 @@ const App = () => {
 
 }, [codes])
 
-useEffect(() => {
-  console.log(geography)
-}, [geography])
+// useEffect(() => {
+//   console.log(geography)
+// }, [geography])
 
   let moduleContent;
 

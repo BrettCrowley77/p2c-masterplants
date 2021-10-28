@@ -58,6 +58,7 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
         <Autocomplete
             multiple
             id="tags-outlined"
+            // limitTags={10}
             value={codes}
             options={postalcodes}
             getOptionLabel={(option) => option.FIELD1}
@@ -70,6 +71,7 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
                 value.map((option, index) => (
                     <Chip
                         key={index}
+                        spacing={10}
                         data-tag-index={index}
                         tabIndex={-1}
                         label={option.FIELD1}
@@ -79,13 +81,36 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
                     />
                 ))
             }
-            renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="Postal Code"
+            // renderInput={(params) => (
+            //     <TextField
+            //         {...params}
+            //         label="Postal Code"
+            //         placeholder="Select one or more postal codes"
+            //     />
+                
+            // )}
+            renderInput={ params => {
+                const { InputProps, ...restParams } = params;
+                const { startAdornment, ...restInputProps } = InputProps;
+                return (
+                  <TextField
+                    { ...restParams }
+                    InputProps={ {
+                      ...restInputProps,
+                      startAdornment: (
+                        <div style={ {
+                          maxHeight: 150,
+                          overflowY: 'auto',
+                        } }
+                        >
+                          {startAdornment}
+                        </div>
+                      ),
+                    } }
                     placeholder="Select one or more postal codes"
-                />
-            )}
+                  />
+                );
+              } }
         />
     );
 

@@ -31,7 +31,7 @@ function Module2({ Item, activeStep, geography, setGeography, codes, setCodes, m
                 </Col>
                 <Col xs={12} md={9}>
                     <Paper>
-                        <CustomMap activeStep={ activeStep } geography={ geography } setGeography={ setGeography } map={ map } ecoregions={ ecoregions } postalcodes={ postalcodes }/>
+                        <CustomMap activeStep={ activeStep } geography={ geography } setGeography={ setGeography } map={ map } ecoregions={ ecoregions } postalcodes={ postalcodes } codes={ codes } setCodes={ setCodes }/>
                     </Paper>
                 </Col>
             </Row>

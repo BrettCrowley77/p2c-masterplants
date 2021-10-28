@@ -8,7 +8,7 @@ const styles = {
 
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJldHQ3NyIsImEiOiJja3QwanZ6NDQwNXl6MzJuMDdsanVtamY0In0.2ij5RMkF9AYtSSag_66tcQ";
 
-const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, postalcodes }) => {
+const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, postalcodes, codes, setCodes }) => {
   const mapContainer = useRef(null);
 
 //  console.log(mod1MapData)
@@ -98,6 +98,8 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
     var polygonID = null;
 
     map.current.on('click', 'ecoregions', (e) => {
+
+        setCodes([...codes, ...postalcodes.filter(code => code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
 
         setGeography(parseInt(e.features[0].properties.ECOREGION))
 
