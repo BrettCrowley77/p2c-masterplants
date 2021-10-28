@@ -94,9 +94,12 @@ const App = () => {
     }
 
     setGeography(uniqueIds)
-    console.log(geography)
 
 }, [codes])
+
+useEffect(() => {
+  console.log(geography)
+}, [geography])
 
   let moduleContent;
 

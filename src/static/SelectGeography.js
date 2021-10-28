@@ -49,6 +49,11 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
 
     }
 
+    const handleDelete = chipToDelete => () => {
+        console.log(chips)
+        // setCodes([...codes.filter(obj => obj.FIELD1 == option.FIELD1)])
+    }
+
     return (
         <Autocomplete
             multiple
@@ -68,6 +73,9 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
                         data-tag-index={index}
                         tabIndex={-1}
                         label={option.FIELD1}
+                        onDelete={() => {
+                            setCodes([...codes.filter(obj => obj.FIELD1 != option.FIELD1)])
+                        }}
                     />
                 ))
             }
