@@ -101,7 +101,7 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
 
         setCodes([...codes, ...postalcodes.filter(code => code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
 
-        setGeography(parseInt(e.features[0].properties.ECOREGION))
+        setGeography([parseInt(e.features[0].properties.ECOREGION)])
 
         // Change line style
         if (e.features.length > 0) {

@@ -80,26 +80,26 @@ const App = () => {
 
   }, [activeStep])
 
-  useEffect(() => {
-    var uniqueIds = []
+//   useEffect(() => {
+//     var uniqueIds = []
 
-    if (codes.length > 0) {
+//     if (codes.length > 0) {
 
-        for (var i in codes) {
-            uniqueIds = [...uniqueIds, ...codes[i].FIELD2.split(', ')].map(Number)
-        }
+//         for (var i in codes) {
+//             uniqueIds = [...uniqueIds, ...codes[i].FIELD2.split(', ')].map(Number)
+//         }
 
-        uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj))
+//         uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj))
 
-    }
+//     }
 
-    setGeography(uniqueIds)
+//     setGeography(uniqueIds)
 
-}, [codes])
+// }, [codes])
 
-// useEffect(() => {
-//   console.log(geography)
-// }, [geography])
+useEffect(() => {
+  console.log(geography)
+}, [geography])
 
   let moduleContent;
 

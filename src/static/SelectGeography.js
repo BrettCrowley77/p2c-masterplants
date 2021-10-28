@@ -65,13 +65,25 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
             onChange={(e, v) => {
                 handleSelectGeography(e, v);
                 setCodes(v);
+                var uniqueIds = [];
+
+                if (v.length > 0) {
+
+                    for (var i in v) {
+                        uniqueIds = [...uniqueIds, ...v[i].FIELD2.split(', ')].map(Number)
+                    };
+
+                    uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj));
+
+                };
+
+                setGeography(uniqueIds);
             }}
             filterSelectedOptions
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
                     <Chip
                         key={index}
-                        spacing={10}
                         data-tag-index={index}
                         tabIndex={-1}
                         label={option.FIELD1}
