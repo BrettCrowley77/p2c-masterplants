@@ -101,6 +101,10 @@ useEffect(() => {
   console.log(geography)
 }, [geography])
 
+useEffect(() => {
+  console.log(codes)
+}, [codes])
+
   let moduleContent;
 
   if (activeStep===0) {

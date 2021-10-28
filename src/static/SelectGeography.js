@@ -88,7 +88,19 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
                         tabIndex={-1}
                         label={option.FIELD1}
                         onDelete={() => {
-                            setCodes([...codes.filter(obj => obj.FIELD1 != option.FIELD1)])
+                            var tempCodes = [...codes.filter(obj => obj.FIELD1 != option.FIELD1)]
+                            setCodes(codes => [...codes.filter(obj => obj.FIELD1 != option.FIELD1)])
+                            var uniqueIds = [];
+                            if (tempCodes.length > 0) {
+
+                                for (var i in tempCodes) {
+                                    uniqueIds = [...uniqueIds, ...tempCodes[i].FIELD2.split(', ')].map(Number)
+                                };
+            
+                                uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj));
+            
+                            };
+                            setGeography(uniqueIds)
                         }}
                     />
                 ))

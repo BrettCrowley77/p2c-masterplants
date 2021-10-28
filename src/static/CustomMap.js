@@ -99,24 +99,56 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
 
     map.current.on('click', 'ecoregions', (e) => {
 
-        setCodes([...codes, ...postalcodes.filter(code => code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
-
-        setGeography([parseInt(e.features[0].properties.ECOREGION)])
-
         // Change line style
         if (e.features.length > 0) {
-          map.current.removeFeatureState({
-            source: "ecoregions",
-          });
 
-            polygonID = e.features[0].id;
+          var featureState = map.current.getFeatureState({
+            source: 'ecoregions',
+            id: e.features[0].id
+          })
 
-          map.current.setFeatureState({
+          polygonID = e.features[0].id;
+
+          if (featureState.clicked) {
+
+            if (featureState.clicked == true) {
+
+              map.current.removeFeatureState({
+                source: "ecoregions",
+                id: polygonID
+              });
+
+              setCodes(codes => [...codes.filter(code => !code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
+              setGeography(geography => [...geography.filter(obj => obj != parseInt(e.features[0].properties.ECOREGION))])
+
+            } else {
+
+              map.current.setFeatureState({
+                source: 'ecoregions',
+                id: polygonID,
+              }, {
+                clicked: true
+              });
+
+              setCodes(codes => [...codes, ...postalcodes.filter(code => code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
+              setGeography(geography => [...geography, parseInt(e.features[0].properties.ECOREGION)])
+
+            }
+
+          } else {
+
+            map.current.setFeatureState({
               source: 'ecoregions',
               id: polygonID,
             }, {
               clicked: true
             });
+
+            setCodes(codes => [...codes, ...postalcodes.filter(code => code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
+            setGeography(geography => [...geography, parseInt(e.features[0].properties.ECOREGION)])
+
+          }
+
         }
 
     });
