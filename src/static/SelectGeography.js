@@ -76,8 +76,37 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
                         tabIndex={-1}
                         label={option.FIELD1}
                         onDelete={() => {
+                            var tempCodes = codes
                             setCodes(codes => [...codes.filter(obj => obj.FIELD1 != option.FIELD1)])
-                            setGeography(geography => [...geography.filter(obj => !option.FIELD2.split(', ').map(Number).includes(obj))])
+
+                            var optionGeos = option.FIELD2.split(', ').map(Number)
+                            var newGeography = geography
+
+                            for (var o in optionGeos) {
+
+                                if (tempCodes.filter(obj => obj.FIELD2.split(', ').map(Number).includes(optionGeos[o])).length > 1) { // If another code with the same geography as the deleted tag is still selected, leave geography as is
+                                
+                                } else { // remove the geography of the deleted code
+    
+                                    newGeography = [...newGeography.filter(obj => obj != optionGeos[o])]
+    
+                                }
+
+                            }
+
+                            var droppedGeos = geography.filter(obj => !newGeography.includes(obj))
+
+                            for (var i in droppedGeos) {
+
+                                map.current.removeFeatureState({
+                                    source: "ecoregions",
+                                    id: getUniqueFeatures(map.current.querySourceFeatures('ecoregions', {'source-layer': 'outline'}), 'ECOREGION').find(obj => parseInt(obj.properties.ECOREGION) == droppedGeos[i]).id,
+                                });
+
+                            }
+
+                            setGeography(newGeography)
+                            
                         }}
                     />
                 ))
