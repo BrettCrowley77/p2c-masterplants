@@ -8,7 +8,7 @@ const styles = {
 
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJldHQ3NyIsImEiOiJja3QwanZ6NDQwNXl6MzJuMDdsanVtamY0In0.2ij5RMkF9AYtSSag_66tcQ";
 
-const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, postalcodes, codes, setCodes }) => {
+const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, postalcodes, codes, setCodes, getUniqueFeatures }) => {
   const mapContainer = useRef(null);
 
 //  console.log(mod1MapData)
@@ -94,6 +94,21 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
     // When a click event occurs on a feature in the eastern_ontario layer,
     // open a popup at the location of the click, with description
     // HTML from the click event's properties.
+
+    map.current.once('idle', () => {
+
+      for (var i in geography) {
+
+        map.current.setFeatureState({
+          source: 'ecoregions',
+          id: getUniqueFeatures(map.current.querySourceFeatures('ecoregions', {'source-layer': 'outline'}), 'ECOREGION').find(obj => parseInt(obj.properties.ECOREGION) == geography[i]).id,
+        }, {
+          clicked: true
+        });
+
+      }
+
+    })
 
     var polygonID = null;
 
