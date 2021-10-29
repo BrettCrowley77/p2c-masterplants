@@ -7,16 +7,6 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
 
     const handleSelectGeography = (event, value) => {
 
-        var uniqueIds = []
-
-        for (var i in value) {
-            uniqueIds = [...uniqueIds, ...value[i].FIELD2.split(', ')].map(Number)
-        }
-
-        uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj))
-
-        // console.log(uniqueIds)
-
         if (activeStep == 1 && geography.length > 0) {
        
             for (var i in geography) {
@@ -29,29 +19,7 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
             }
     
         }
-    
-        if (activeStep == 1 && uniqueIds.length > 0) {
 
-            for (var i in uniqueIds) {
-
-                map.current.setFeatureState({
-                    source: 'ecoregions',
-                    id: getUniqueFeatures(map.current.querySourceFeatures('ecoregions', {'source-layer': 'outline'}), 'ECOREGION').find(obj => parseInt(obj.properties.ECOREGION) == uniqueIds[i]).id,
-                  }, {
-                    clicked: true
-                });
-
-            }
-    
-        }
-
-        // setGeography(uniqueIds)
-
-    }
-
-    const handleDelete = chipToDelete => () => {
-        console.log(chips)
-        // setCodes([...codes.filter(obj => obj.FIELD1 == option.FIELD1)])
     }
 
     return (
@@ -65,19 +33,39 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
             onChange={(e, v) => {
                 handleSelectGeography(e, v);
                 setCodes(v);
-                var uniqueIds = [];
+                console.log(e.target.innerHTML.length)
 
-                if (v.length > 0) {
+                if (e.target.innerHTML.length == 3) { // i.e. if a tag is added
 
-                    for (var i in v) {
-                        uniqueIds = [...uniqueIds, ...v[i].FIELD2.split(', ')].map(Number)
-                    };
+                    console.log(e)
+                    console.log(e.target.innerHTML.length)
 
-                    uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj));
+                    var newGeography = [... new Set([...geography, ...postalcodes.filter(obj => obj.FIELD1 == e.target.innerHTML)[0].FIELD2.split(', ').map(Number)].filter(obj => idList.includes(obj)))]
+                    setGeography(newGeography)
 
-                };
+                    if (activeStep == 1 && map.current) {
+       
+                        for (var i in newGeography) {
+            
+                            map.current.setFeatureState({
+                                source: "ecoregions",
+                                id: getUniqueFeatures(map.current.querySourceFeatures('ecoregions', {'source-layer': 'outline'}), 'ECOREGION').find(obj => parseInt(obj.properties.ECOREGION) == newGeography[i]).id,
+                            }, {
+                                clicked: true
+                            });
+            
+                        }
+                
+                    }
 
-                setGeography(uniqueIds);
+                } else { // i.e. if all tags are removed
+
+                    // console.log('hello!')
+                    // console.log(e)
+                    setGeography([])
+
+                }
+
             }}
             filterSelectedOptions
             renderTags={(value, getTagProps) =>
@@ -88,19 +76,8 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
                         tabIndex={-1}
                         label={option.FIELD1}
                         onDelete={() => {
-                            var tempCodes = [...codes.filter(obj => obj.FIELD1 != option.FIELD1)]
                             setCodes(codes => [...codes.filter(obj => obj.FIELD1 != option.FIELD1)])
-                            var uniqueIds = [];
-                            if (tempCodes.length > 0) {
-
-                                for (var i in tempCodes) {
-                                    uniqueIds = [...uniqueIds, ...tempCodes[i].FIELD2.split(', ')].map(Number)
-                                };
-            
-                                uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj));
-            
-                            };
-                            setGeography(uniqueIds)
+                            setGeography(geography => [...geography.filter(obj => !option.FIELD2.split(', ').map(Number).includes(obj))])
                         }}
                     />
                 ))

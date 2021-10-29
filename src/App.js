@@ -101,9 +101,9 @@ useEffect(() => {
   console.log(geography)
 }, [geography])
 
-useEffect(() => {
-  console.log(codes)
-}, [codes])
+// useEffect(() => {
+//   console.log(codes)
+// }, [codes])
 
   let moduleContent;
 

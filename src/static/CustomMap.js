@@ -119,7 +119,7 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
               });
 
               setCodes(codes => [...codes.filter(code => !code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
-              setGeography(geography => [...geography.filter(obj => obj != parseInt(e.features[0].properties.ECOREGION))])
+              setGeography(geography => [... new Set(geography.filter(obj => obj != parseInt(e.features[0].properties.ECOREGION)))])
 
             } else {
 
@@ -131,7 +131,7 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
               });
 
               setCodes(codes => [...codes, ...postalcodes.filter(code => code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
-              setGeography(geography => [...geography, parseInt(e.features[0].properties.ECOREGION)])
+              setGeography(geography => [... new Set([...geography, parseInt(e.features[0].properties.ECOREGION)])])
 
             }
 
@@ -145,7 +145,7 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
             });
 
             setCodes(codes => [...codes, ...postalcodes.filter(code => code.FIELD2.split(', ').map(Number).includes(e.features[0].properties.ECOREGION))])
-            setGeography(geography => [...geography, parseInt(e.features[0].properties.ECOREGION)])
+            setGeography(geography => [... new Set([...geography, parseInt(e.features[0].properties.ECOREGION)])])
 
           }
 
