@@ -3,31 +3,31 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 
-export default function SelectColours({ filterColours, colours, setColours }) {
+export default function SelectFilter({ filterOptions, stateVar, setStateVar, placeholder }) {
 
     return (
         <Autocomplete
             multiple
             id="tags-outlined"
             // limitTags={10}
-            value={colours}
-            options={filterColours}
+            value={stateVar}
+            options={filterOptions}
             getOptionLabel={(option) => option.label}
             onChange={(e, v) => {
 
-                var colourList = filterColours.map(obj => obj.label)
+                var optionList = filterOptions.map(obj => obj.label)
 
-                console.log(colourList)
+                console.log(optionList)
                 console.log(e)
                 console.log(v)
 
-                if (colourList.includes(e.target.innerHTML)) { // i.e. if a tag is added
+                if (optionList.includes(e.target.innerHTML)) { // i.e. if a tag is added
 
-                    setColours(v)
+                    setStateVar(v)
 
                 } else { // i.e. if all tags are removed
 
-                    setColours(filterColours)
+                    setStateVar(filterOptions)
 
                 }
 
@@ -42,7 +42,7 @@ export default function SelectColours({ filterColours, colours, setColours }) {
                         label={option.label}
                         onDelete={() => {
 
-                            setColours(colours => [...colours.filter(obj => obj.label != option.label)])
+                            setStateVar(stateVar => [...stateVar.filter(obj => obj.label != option.label)])
 
                         }}
                     />
@@ -66,7 +66,7 @@ export default function SelectColours({ filterColours, colours, setColours }) {
                         </div>
                       ),
                     } }
-                    placeholder="Select one or more colours"
+                    placeholder={placeholder}
                   />
                 );
               } }

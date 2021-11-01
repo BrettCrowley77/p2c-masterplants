@@ -57,6 +57,34 @@ var filterColours = [
   {id: 11, label: 'yellow'},
 ]
 
+var filterSoilMoisture = [
+  {id: 1, label: 'dry'},
+  {id: 2, label: 'mesic'},
+  {id: 3, label: 'moist'},
+  {id: 4, label: 'poorly drained'},
+  {id: 5, label: 'well drained'},
+  {id: 6, label: 'dry-mesic'},
+  {id: 7, label: 'dry-moist'},
+  {id: 8, label: 'dry-wet'},
+  {id: 9, label: 'mesic-moist'},
+  {id: 10, label: 'mesic-wet'},
+  {id: 11, label: 'moist-wet'},
+  {id: 12, label: 'acidic'},
+  {id: 13, label: 'poorly drained'},
+  {id: 14, label: 'seasonally flooded'},
+  {id: 15, label: 'flooded'},
+  {id: 16, label: 'in swamps'},
+]
+
+var filterSunExposure = [
+  {id: 1, label: 'partial sun/shade'},
+  {id: 2, label: 'partial sun/shade-shade'},
+  {id: 3, label: 'shade'},
+  {id: 4, label: 'sun'},
+  {id: 5, label: 'sun-partial sun/shade'},
+  {id: 6, label: 'sun-shade'},
+]
+
 postalcodes = postalcodes.filter(obj => obj.FIELD2.split(', ').map(Number).some(r => idList.includes(r)))
 
 ecoregions.features = ecoregions.features.filter(item => {
@@ -75,6 +103,8 @@ const App = () => {
   const map = useRef(null);
 
   const [colours, setColours] = useState(filterColours);
+  const [soilMoisture, setSoilMoisture] = useState(filterSoilMoisture);
+  const [sunExposure, setSunExposure] = useState(filterSunExposure);
   const [rowData, setRowData] = useState(rows);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -99,12 +129,21 @@ const App = () => {
 
   }, [activeStep])
 
-  useEffectIf((colours), () => {
+  useEffectIf((soilMoisture, sunExposure, colours), () => {
 
     var colourList = [...colours.map(obj => obj.label)]
-    setRowData(rows.filter(row => row.col13 !== null).filter(row => row.col13.split(', ').some(r => colourList.includes(r))))
+    var soilMoistureList = [...soilMoisture.map(obj => obj.label)]
+    var sunExposureList = [...sunExposure.map(obj => obj.label)]
 
-  }, [colours])
+    setRowData(
+      rows
+      // .filter(row => row.col12 !== null && row.col13 != null && row.col14 != null)
+      .filter(row => row.col12.split(', ').some(r => colourList.includes(r)))
+      .filter(row => row.col13.split(', ').some(r => soilMoistureList.includes(r)))
+      .filter(row => row.col14.split(', ').some(r => sunExposureList.includes(r)))
+      )
+
+  }, [soilMoisture, sunExposure, colours])
 
 useEffect(() => {
   console.log(geography)
@@ -117,7 +156,9 @@ useEffect(() => {
   } else if (activeStep===1) {
     moduleContent = <Module2 Item={ Item } activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
   } else if (activeStep===2) {
-    moduleContent = <Module3 Item={ Item } filterColours={ filterColours } colours={ colours } setColours={ setColours }/>
+    moduleContent = <Module3 Item={ Item } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
+                    filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 
+                    filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } />
   } else if (activeStep===3) {
     moduleContent = <Module4 Item={ Item } rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
   }
