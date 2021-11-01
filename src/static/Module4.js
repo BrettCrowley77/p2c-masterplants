@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 // import { useDemoData } from '@mui/x-data-grid-generator';
 import CustomToolbar from './CustomToolbar.js';
 
-function Module4({ Item }) {
+function Module4({ Item, rows, rowData, setRowData }) {
 
     const columns = [
       { field: 'col1', headerName: 'Botanical Name', width: 150 },
@@ -24,14 +24,12 @@ function Module4({ Item }) {
       { field: 'col16', headerName: 'Ecoregion code', width: 150 },
       { field: 'col17', headerName: 'Ecoregion name', width: 150 }
     ]
-
-    const rows = require('../data/masterplants.json');
   
     return (
       <div style={{ height: 500, width: '100%' }}>
         <DataGrid
           columns={columns}
-          rows={rows}
+          rows={rowData}
           components={{
             Toolbar: CustomToolbar,
           }}

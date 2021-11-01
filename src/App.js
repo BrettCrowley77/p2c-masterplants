@@ -40,13 +40,24 @@ function getUniqueFeatures(features, comparatorProperty) {
 
 const ecoregions = require('./data/ecoregions.json')
 var postalcodes = require('./data/postalcodes.json')
+const rows = require('./data/masterplants.json');
 const idList = [0, 98, 99, 101, 107, 112, 124, 127, 128, 130, 132, 134, 135, 156, 157, 158, 159, 162, 188, 189, 191, 192, 193, 194, 195, 196, 202, 203, 205, 209, 210, 211]
 
-console.log(postalcodes.length)
+var filterColours = [
+  {id: 1, label: 'blue'},
+  {id: 2, label: 'purple'},
+  {id: 3, label: 'white'},
+  {id: 4, label: 'cream'},
+  {id: 5, label: 'pink'},
+  {id: 6, label: 'red'},
+  {id: 7, label: 'green'},
+  {id: 8, label: 'brown'},
+  {id: 9, label: 'inconspicuous'},
+  {id: 10, label: 'orange'},
+  {id: 11, label: 'yellow'},
+]
 
 postalcodes = postalcodes.filter(obj => obj.FIELD2.split(', ').map(Number).some(r => idList.includes(r)))
-
-console.log(postalcodes.length)
 
 ecoregions.features = ecoregions.features.filter(item => {
   if (idList.filter(id => id === item.properties.ECOREGION).length > 0) {
@@ -60,8 +71,11 @@ const App = () => {
   const [skipped, setSkipped] = useState(new Set());
 
   const [geography, setGeography] = useState([]);
-  const [codes, setCodes] = useState([])
+  const [codes, setCodes] = useState([]);
   const map = useRef(null);
+
+  const [colours, setColours] = useState(filterColours);
+  const [rowData, setRowData] = useState(rows);
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -69,6 +83,11 @@ const App = () => {
     textAlign: 'left',
     color: theme.palette.text.secondary,
   }));
+
+  // Define function to conditionally useEffect
+  const useEffectIf = (condition, fn, dependencies) => {
+    useEffect(() => condition && fn(), dependencies)
+  }
 
   useEffect(() => {
 
@@ -80,30 +99,16 @@ const App = () => {
 
   }, [activeStep])
 
-//   useEffect(() => {
-//     var uniqueIds = []
+  useEffectIf((colours), () => {
 
-//     if (codes.length > 0) {
+    var colourList = [...colours.map(obj => obj.label)]
+    setRowData(rows.filter(row => row.col13 !== null).filter(row => row.col13.split(', ').some(r => colourList.includes(r))))
 
-//         for (var i in codes) {
-//             uniqueIds = [...uniqueIds, ...codes[i].FIELD2.split(', ')].map(Number)
-//         }
-
-//         uniqueIds = [... new Set(uniqueIds)].filter(obj => idList.includes(obj))
-
-//     }
-
-//     setGeography(uniqueIds)
-
-// }, [codes])
+  }, [colours])
 
 useEffect(() => {
   console.log(geography)
 }, [geography])
-
-// useEffect(() => {
-//   console.log(codes)
-// }, [codes])
 
   let moduleContent;
 
@@ -112,9 +117,9 @@ useEffect(() => {
   } else if (activeStep===1) {
     moduleContent = <Module2 Item={ Item } activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
   } else if (activeStep===2) {
-    moduleContent = <Module3 Item={ Item } />
+    moduleContent = <Module3 Item={ Item } filterColours={ filterColours } colours={ colours } setColours={ setColours }/>
   } else if (activeStep===3) {
-    moduleContent = <Module4 Item={ Item } />
+    moduleContent = <Module4 Item={ Item } rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
   }
 
       return (
