@@ -12,7 +12,7 @@ function CustomAppBar() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>
-                Plant Me!
+                Find Your Roots
             </Typography>
             <Box sx={{marginTop: 3}}>
                 <img src={logo} />
@@ -20,7 +20,7 @@ function CustomAppBar() {
           </Toolbar>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Your go-to guide for finding the most suitable, pollinator-friendly native plants for your region
+                A guide for finding the most suitable, pollinator-friendly native plants for your region
             </Typography>
           </Toolbar>
         </AppBar>

@@ -129,7 +129,7 @@ const App = () => {
 
   }, [activeStep])
 
-  useEffectIf((soilMoisture, sunExposure, colours), () => {
+  useEffectIf((soilMoisture, sunExposure, colours, geography), () => {
 
     var colourList = [...colours.map(obj => obj.label)]
     var soilMoistureList = [...soilMoisture.map(obj => obj.label)]
@@ -141,9 +141,12 @@ const App = () => {
       .filter(row => row.col12.split(', ').some(r => colourList.includes(r)))
       .filter(row => row.col13.split(', ').some(r => soilMoistureList.includes(r)))
       .filter(row => row.col14.split(', ').some(r => sunExposureList.includes(r)))
+      .filter(row => {
+        return geography.length > 0 ? geography.includes(row.col16) : true
+      }) // If one or more geographies selected filter to geography, otherwise include all geographies
       )
 
-  }, [soilMoisture, sunExposure, colours])
+  }, [soilMoisture, sunExposure, colours, geography])
 
 useEffect(() => {
   console.log(geography)
@@ -170,6 +173,8 @@ useEffect(() => {
             <CustomStepper activeStep={ activeStep } skipped={ skipped } setActiveStep={ setActiveStep } setSkipped={ setSkipped }/>
             <br></br>
             {moduleContent}
+            <br></br>
+            <br></br>
           </ThemeProvider>
       )
 }

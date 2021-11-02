@@ -1,10 +1,12 @@
 import React from 'react'
-import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
+import { DataGrid, GridToolbarContainer, GridToolbarExport, GridToolbarColumnsButton, GridToolbarFilterButton } from '@mui/x-data-grid';
 
 function CustomToolbar() {
     return (
       <GridToolbarContainer>
         <GridToolbarExport />
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
       </GridToolbarContainer>
     );
 }

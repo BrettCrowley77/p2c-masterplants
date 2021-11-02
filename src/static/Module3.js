@@ -16,7 +16,11 @@ function Module3({ Item, filterColours, colours, setColours, filterSoilMoisture,
             <Row>
                 <Col xs={12}>
                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
-                        Placeholder for Module 3
+                    Now that we’ve generated a list of native plants that will support pollinators in
+                    your ecoregion, click 'Next' to go to the plant list or choose
+                    some filters to refine and customize your list to your planting area and preferences.
+                    We recommend customizing the 'Sun Requirements' and 'Soil Moisture' filters to suit
+                    your growing conditions. The other filters are optional based on your preferences.
                     </Typography>
                     <br></br>
                     <Grid container spacing={3}>
