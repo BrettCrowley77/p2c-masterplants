@@ -5,7 +5,9 @@ function CustomToolbar() {
     return (
       <GridToolbarContainer>
         <GridToolbarExport />
+        <br></br>
         <GridToolbarColumnsButton />
+        <br></br>
         <GridToolbarFilterButton />
       </GridToolbarContainer>
     );

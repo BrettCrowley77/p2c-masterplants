@@ -27,7 +27,7 @@ export default function SelectFilter({ filterOptions, stateVar, setStateVar, pla
 
                 } else { // i.e. if all tags are removed
 
-                    setStateVar(filterOptions)
+                    setStateVar([])
 
                 }
 

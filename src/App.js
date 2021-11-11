@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -43,46 +43,47 @@ var postalcodes = require('./data/postalcodes.json')
 const rows = require('./data/masterplants.json');
 const idList = [0, 98, 99, 101, 107, 112, 124, 127, 128, 130, 132, 134, 135, 156, 157, 158, 159, 162, 188, 189, 191, 192, 193, 194, 195, 196, 202, 203, 205, 209, 210, 211]
 
+const dates = [
+  {value: 1, label: "Spring"},
+  {value: 2, label: "Early Summer"},
+  {value: 3, label: "Late Summer"},
+  {value: 4, label: "Autumn"},
+]
+
+// const dates = [
+//   {value: 1, label: "Jan"},
+//   {value: 2, label: "Feb"},
+//   {value: 3, label: "Mar"},
+//   {value: 4, label: "Apr"},
+//   {value: 5, label: "May"},
+//   {value: 6, label: "Jun"},
+//   {value: 7, label: "Jul"},
+//   {value: 8, label: "Aug"},
+//   {value: 9, label: "Sep"},
+//   {value: 10, label: "Oct"},
+//   {value: 11, label: "Nov"},
+//   {value: 12, label: "Dec"},
+// ]
+
 var filterColours = [
-  {id: 1, label: 'blue'},
-  {id: 2, label: 'purple'},
-  {id: 3, label: 'white'},
-  {id: 4, label: 'cream'},
-  {id: 5, label: 'pink'},
-  {id: 6, label: 'red'},
-  {id: 7, label: 'green'},
-  {id: 8, label: 'brown'},
-  {id: 9, label: 'inconspicuous'},
-  {id: 10, label: 'orange'},
-  {id: 11, label: 'yellow'},
+  {id: 1, label: 'blue-purple'},
+  {id: 2, label: 'white-cream-pink'},
+  {id: 3, label: 'red'},
+  {id: 4, label: 'green-brown-inconspicuous'},
+  {id: 5, label: 'orange-yellow'},
 ]
 
 var filterSoilMoisture = [
   {id: 1, label: 'dry'},
-  {id: 2, label: 'mesic'},
+  {id: 2, label: 'mesic (normal)'},
   {id: 3, label: 'moist'},
-  {id: 4, label: 'poorly drained'},
-  {id: 5, label: 'well drained'},
-  {id: 6, label: 'dry-mesic'},
-  {id: 7, label: 'dry-moist'},
-  {id: 8, label: 'dry-wet'},
-  {id: 9, label: 'mesic-moist'},
-  {id: 10, label: 'mesic-wet'},
-  {id: 11, label: 'moist-wet'},
-  {id: 12, label: 'acidic'},
-  {id: 13, label: 'poorly drained'},
-  {id: 14, label: 'seasonally flooded'},
-  {id: 15, label: 'flooded'},
-  {id: 16, label: 'in swamps'},
+  {id: 4, label: 'wet'},
 ]
 
 var filterSunExposure = [
-  {id: 1, label: 'partial sun/shade'},
-  {id: 2, label: 'partial sun/shade-shade'},
+  {id: 1, label: 'sun'},
+  {id: 2, label: 'partial sun to shade'},
   {id: 3, label: 'shade'},
-  {id: 4, label: 'sun'},
-  {id: 5, label: 'sun-partial sun/shade'},
-  {id: 6, label: 'sun-shade'},
 ]
 
 postalcodes = postalcodes.filter(obj => obj.FIELD2.split(', ').map(Number).some(r => idList.includes(r)))
@@ -102,10 +103,16 @@ const App = () => {
   const [codes, setCodes] = useState([]);
   const map = useRef(null);
 
-  const [colours, setColours] = useState(filterColours);
-  const [soilMoisture, setSoilMoisture] = useState(filterSoilMoisture);
-  const [sunExposure, setSunExposure] = useState(filterSunExposure);
+  const [colours, setColours] = useState([]);
+  const [soilMoisture, setSoilMoisture] = useState([]);
+  const [sunExposure, setSunExposure] = useState([]);
   const [rowData, setRowData] = useState(rows);
+
+  const [dateSlider, setDateSlider] = useState([Math.min.apply(Math, dates.map(function(date) { return date.value; })), Math.max.apply(Math, dates.map(function(date) { return date.value; }))]);
+  const [minDateValue, setMinDateValue] = useState(Math.min.apply(Math, dates.map(function(date) { return date.value; })))
+  const [maxDateValue, setMaxDateValue] = useState(Math.max.apply(Math, dates.map(function(date) { return date.value; })))
+  const [minDate, setMinDate] = useState('Early Spring')
+  const [maxDate, setMaxDate] = useState('Autumn')
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -117,6 +124,14 @@ const App = () => {
   // Define function to conditionally useEffect
   const useEffectIf = (condition, fn, dependencies) => {
     useEffect(() => condition && fn(), dependencies)
+  }
+
+  const wrapperSetDateSlider = useCallback(val => {
+    setDateSlider(val)
+  }, [setDateSlider])
+
+  const handleDateChange = (event, newValue) => {
+    setDateSlider(newValue)
   }
 
   useEffect(() => {
@@ -138,15 +153,22 @@ const App = () => {
     setRowData(
       rows
       // .filter(row => row.col12 !== null && row.col13 != null && row.col14 != null)
-      .filter(row => row.col12.split(', ').some(r => colourList.includes(r)))
-      .filter(row => row.col13.split(', ').some(r => soilMoistureList.includes(r)))
-      .filter(row => row.col14.split(', ').some(r => sunExposureList.includes(r)))
+      .filter(row => colours.length > 0 ? row.col16.split(', ').some(r => colourList.includes(r)) : true)
+      .filter(row => soilMoisture.length > 0 ? row.col17.split(', ').some(r => soilMoistureList.includes(r)) : true)
+      .filter(row => sunExposure.length > 0 ? row.col18.split(', ').some(r => sunExposureList.includes(r)) : true)
       .filter(row => {
-        return geography.length > 0 ? geography.includes(row.col16) : true
+        return geography.length > 0 ? geography.includes(row.col19) : true
       }) // If one or more geographies selected filter to geography, otherwise include all geographies
       )
 
   }, [soilMoisture, sunExposure, colours, geography])
+
+  // Set the minimum and maximum date labels to display on the timeframe selector
+  useEffectIf((dates && dateSlider), () => {
+    console.log(dateSlider)
+    setMinDate(dates.find((date) => date.value === dateSlider[0]).label);
+    setMaxDate(dates.find((date) => date.value === dateSlider[1]).label);
+  }, [dateSlider])
 
 useEffect(() => {
   console.log(geography)
@@ -161,7 +183,10 @@ useEffect(() => {
   } else if (activeStep===2) {
     moduleContent = <Module3 Item={ Item } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
                     filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 
-                    filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } />
+                    filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } 
+                    dates={ dates } dateSlider={ dateSlider } setDateSlider={ setDateSlider } minDateValue={ minDateValue } maxDateValue={ maxDateValue }
+                    minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate } wrapperSetDateSlider={ wrapperSetDateSlider }
+                    handleDateChange={ handleDateChange }/>
   } else if (activeStep===3) {
     moduleContent = <Module4 Item={ Item } rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
   }

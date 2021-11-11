@@ -15,21 +15,12 @@ function Module4({ Item, rows, rowData, setRowData }) {
       { field: 'col1', headerName: 'Botanical Name', width: 200 },
       { field: 'col2', headerName: 'Common Name', width: 200 },
       { field: 'col3', headerName: 'Plant type', width: 125 },
-      // { field: 'col4', headerName: 'soil texture', width: 150 },
       { field: 'col5', headerName: 'Pollinators', width: 125 },
-      // { field: 'col6', headerName: 'Also a host', width: 150 },
-      // { field: 'col7', headerName: 'Palatability to Deer', width: 150 },
-      // { field: 'col8', headerName: 'additional information', width: 150 },
-      // { field: 'col9', headerName: 'Height Units', width: 150 },
-      // { field: 'col10', headerName: 'Height Lower', width: 150 },
-      // { field: 'col11', headerName: 'Height Upper	', width: 150 },
       { field: 'col12', headerName: 'Flower Colour', width: 125 },
       { field: 'col13', headerName: 'Soil Moisture', width: 125 },
       { field: 'col14', headerName: 'Sun Requirements', width: 125 },
-      // { field: 'col16', headerName: 'Ecoregion code', width: 150 },
-      { field: 'col17', headerName: 'Season Start', width: 125 },
-      { field: 'col18', headerName: 'Season End', width: 125 },
-      // { field: 'col19', headerName: 'Ecoregion name', width: 150 },
+      { field: 'col20', headerName: 'Season Start', width: 125 },
+      { field: 'col21', headerName: 'Season End', width: 125 },
     ]
   
     return (

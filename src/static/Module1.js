@@ -17,7 +17,7 @@ function Module1({ Item }) {
                     <Grid item xs={12}>
                             <Item>
                                 <Typography variant="body2" component="div" spacing={3} sx={{ flexGrow: 1 }}>
-                                    Welcome to Pollinator Partnership Canada's Pollinator Plant Selection Tool, <em>Find Your Roots</em> The tool is based on the lists of native plants that support pollinators from our <a href="https://pollinatorpartnership.ca/en/ecoregional-planting-guides" target="_blank">Ecoregional Planting guide series</a>. Guides contain detailed information on pollinators, how to help them, and feature specific ecoregional information. Use this tool to make it easier to create customized plant lists for your region and requirements.
+                                    Welcome to Pollinator Partnership Canada's Pollinator Plant Selection Tool, <em>Find Your Roots</em>. The tool is based on the lists of native plants that support pollinators from our <a href="https://pollinatorpartnership.ca/en/ecoregional-planting-guides" target="_blank">Ecoregional Planting guide series</a>. Guides contain detailed information on pollinators, how to help them, and feature specific ecoregional information. Use this tool to make it easier to create customized plant lists for your region and requirements.
                                 </Typography>
                                 <br></br>
                                 <Typography variant="body2" component="div" spacing={3} sx={{ flexGrow: 1 }}>
@@ -25,7 +25,7 @@ function Module1({ Item }) {
                                 </Typography>
                                 <br></br>
                                 <Typography variant="body2" component="div" spacing={3} sx={{ flexGrow: 1 }}>
-                                    For App feedback contact Lora Morandin, Research and Conservation Director, Pollinator Partnership at LM@pollinator.org
+                                    For App feedback contact Lora Morandin, Research and Conservation Director, Pollinator Partnership at <a href="mailto: LM@pollinator.org">LM@pollinator.org</a>.
                                 </Typography>
                             </Item>
                     </Grid>
