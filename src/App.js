@@ -17,6 +17,9 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: "'Montserrat', sans-serif",
+        body1: {
+          fontSize: 20
+        }
     }
 });
 
@@ -209,18 +212,18 @@ useEffect(() => {
   let moduleContent;
 
   if (activeStep===0) {
-    moduleContent = <Module1 Item={ Item }/>
+    moduleContent = <Module1 Item={ Item } theme={ theme } />
   } else if (activeStep===1) {
-    moduleContent = <Module2 Item={ Item } activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
+    moduleContent = <Module2 Item={ Item } theme={ theme }  activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
   } else if (activeStep===2) {
-    moduleContent = <Module3 Item={ Item } filterPollinators={ filterPollinators } pollinators={ pollinators } setPollinators={ setPollinators } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
+    moduleContent = <Module3 Item={ Item } theme={ theme }  filterPollinators={ filterPollinators } pollinators={ pollinators } setPollinators={ setPollinators } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
                     filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 
                     filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } 
                     dates={ dates } dateSlider={ dateSlider } setDateSlider={ setDateSlider } minDateValue={ minDateValue } maxDateValue={ maxDateValue }
                     minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate } wrapperSetDateSlider={ wrapperSetDateSlider }
                     handleDateChange={ handleDateChange }/>
   } else if (activeStep===3) {
-    moduleContent = <Module4 Item={ Item } rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
+    moduleContent = <Module4 Item={ Item } theme={ theme }  rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
   }
 
       return (

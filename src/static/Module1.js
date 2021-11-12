@@ -16,15 +16,15 @@ function Module1({ Item }) {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                             <Item>
-                                <Typography variant="body2" component="div" spacing={3} sx={{ flexGrow: 1 }}>
+                                <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
                                     Welcome to Pollinator Partnership Canada's Pollinator Plant Selection Tool, <em>Find Your Roots</em>. The tool is based on the lists of native plants that support pollinators from our <a href="https://pollinatorpartnership.ca/en/ecoregional-planting-guides" target="_blank">Ecoregional Planting guide series</a>. Guides contain detailed information on pollinators, how to help them, and feature specific ecoregional information. Use this tool to make it easier to create customized plant lists for your region and requirements.
                                 </Typography>
                                 <br></br>
-                                <Typography variant="body2" component="div" spacing={3} sx={{ flexGrow: 1 }}>
+                                <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
                                     You can create your plant list by first selecting your region, using the first 3 digits of your postal code or selecting your location on a map. Then, you will be able to filter plants based on your pollinator planting needs. It’s easy and fun, and the bees and butterflies will thank you!
                                 </Typography>
                                 <br></br>
-                                <Typography variant="body2" component="div" spacing={3} sx={{ flexGrow: 1 }}>
+                                <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
                                     For App feedback contact Lora Morandin, Research and Conservation Director, Pollinator Partnership at <a href="mailto: LM@pollinator.org">LM@pollinator.org</a>.
                                 </Typography>
                             </Item>

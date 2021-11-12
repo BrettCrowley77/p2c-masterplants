@@ -35,7 +35,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
             <Row>
                 <Col xs={12} sm={4}>
                     <Paper className={paperClasses.paper}>
-                        <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
+                        <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
                         Now that we’ve generated a list of native plants that will support pollinators in
                         your ecoregion, click 'Next' to go to the plant list or choose
                         some filters to refine and customize your list to your planting area and preferences.
