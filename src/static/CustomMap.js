@@ -62,7 +62,12 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
             'source': 'ecoregions', // reference the data source
             'layout': {},
             'paint': {
-                'fill-color': '#6D8764',
+                'fill-color': [
+                  'case',
+                  ['boolean', ['feature-state', 'clicked'], false],
+                  '#EE9B00',
+                  '#6D8764' 
+                ], 
                 'fill-opacity': 0.5
             }
         }, 'settlement-label');
@@ -73,12 +78,7 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
             'source': 'ecoregions',
             'layout': {},
             'paint': {
-            'line-color': [
-                'case',
-                ['boolean', ['feature-state', 'clicked'], false],
-                '#4D4F53', // if selected true, paint in blue
-                '#ffffff' // else paint in gray
-            ],
+            'line-color': '#ffffff',
             'line-width': 1
             }
         }, 'settlement-label');
