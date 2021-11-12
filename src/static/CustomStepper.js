@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
+import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -33,6 +33,10 @@ export default function HorizontalLinearStepper({ activeStep, skipped, setActive
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
       // You probably want to guard against something like this,
@@ -54,7 +58,7 @@ export default function HorizontalLinearStepper({ activeStep, skipped, setActive
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep}>
+      <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
@@ -68,7 +72,9 @@ export default function HorizontalLinearStepper({ activeStep, skipped, setActive
           }
           return (
             <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+              <StepButton onClick={handleStep(index)}>
+                {label}
+              </StepButton>
             </Step>
           );
         })}
@@ -92,15 +98,11 @@ export default function HorizontalLinearStepper({ activeStep, skipped, setActive
               Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
+            {(activeStep !== steps.length - 1) && (
+              <Button onClick={handleNext}>
+                Next
               </Button>
             )}
-
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
           </Box>
         </React.Fragment>
       )}

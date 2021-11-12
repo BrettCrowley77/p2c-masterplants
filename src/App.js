@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
-import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 import CustomAppBar from './static/CustomAppBar.js'
@@ -129,7 +126,6 @@ const App = () => {
   const [maxDate, setMaxDate] = useState('Autumn')
 
   const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
     padding: theme.spacing(2),
     textAlign: 'left',
     color: theme.palette.text.secondary,
