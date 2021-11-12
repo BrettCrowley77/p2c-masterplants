@@ -23,7 +23,7 @@ const paperStyles = makeStyles((theme) => ({
     },
   }));
 
-function Module3({ Item, filterColours, colours, setColours, filterSoilMoisture, soilMoisture, setSoilMoisture, filterSunExposure, sunExposure, setSunExposure,
+function Module3({ Item, filterPollinators, pollinators, setPollinators, filterColours, colours, setColours, filterSoilMoisture, soilMoisture, setSoilMoisture, filterSunExposure, sunExposure, setSunExposure,
                     dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate, setMinDate, setMaxDate, wrapperSetDateSlider, handleDateChange }) {
 
     const paperClasses = paperStyles();
@@ -47,7 +47,7 @@ function Module3({ Item, filterColours, colours, setColours, filterSoilMoisture,
                         <Grid container spacing={3}>
                             <Grid item xs={12} lg={6}>
                                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
-                                        Choose one or more soil moisture states:
+                                        <b>(Recommended)</b> Choose one or more soil moisture states:
                                     </Typography>
                                     <br></br>
                                     <Item>
@@ -56,11 +56,20 @@ function Module3({ Item, filterColours, colours, setColours, filterSoilMoisture,
                             </Grid>
                             <Grid item xs={12} lg={6}>
                                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
-                                        Choose one or more sun exposure levels:
+                                        <b>(Recommended)</b> Choose one or more sun exposure levels:
                                     </Typography>
                                     <br></br>
                                     <Item>
                                         <SelectFilter filterOptions={ filterSunExposure } stateVar={ sunExposure } setStateVar={ setSunExposure } placeholder={ "Select one or more sun exposure levels" } />
+                                    </Item>
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                    <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
+                                        Choose one or more pollinators:
+                                    </Typography>
+                                    <br></br>
+                                    <Item>
+                                        <SelectFilter filterOptions={ filterPollinators } stateVar={ pollinators } setStateVar={ setPollinators } placeholder={ "Select one or more pollinators" } />
                                     </Item>
                             </Grid>
                             <Grid item xs={12} lg={6}>

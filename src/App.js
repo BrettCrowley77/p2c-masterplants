@@ -65,6 +65,19 @@ const dates = [
 //   {value: 12, label: "Dec"},
 // ]
 
+var filterPollinators = [
+  {id: 1, label: 'bees'},
+  {id: 2, label: 'flies'},
+  {id: 3, label: 'beetles'},
+  {id: 4, label: 'butterflies'},
+  {id: 5, label: 'hummingbirds'},
+  {id: 6, label: 'moths'},
+  {id: 7, label: 'gnats'},
+  {id: 8, label: 'thrips'},
+  {id: 9, label: 'wasps'},
+  {id: 10, label: 'other insects'},
+]
+
 var filterColours = [
   {id: 1, label: 'blue-purple'},
   {id: 2, label: 'white-cream-pink'},
@@ -106,6 +119,7 @@ const App = () => {
   const [colours, setColours] = useState([]);
   const [soilMoisture, setSoilMoisture] = useState([]);
   const [sunExposure, setSunExposure] = useState([]);
+  const [pollinators, setPollinators] = useState([]);
   const [rowData, setRowData] = useState(rows);
 
   const [dateSlider, setDateSlider] = useState([Math.min.apply(Math, dates.map(function(date) { return date.value; })), Math.max.apply(Math, dates.map(function(date) { return date.value; }))]);
@@ -144,8 +158,9 @@ const App = () => {
 
   }, [activeStep])
 
-  useEffectIf((soilMoisture, sunExposure, colours, geography, dateSlider), () => {
+  useEffectIf((soilMoisture, sunExposure, colours, pollinators, geography, dateSlider), () => {
 
+    var pollinatorList = [...pollinators.map(obj => obj.label)]
     var colourList = [...colours.map(obj => obj.label)]
     var soilMoistureList = [...soilMoisture.map(obj => obj.label)]
     var sunExposureList = [...sunExposure.map(obj => obj.label)]
@@ -159,6 +174,7 @@ const App = () => {
 
     var newData = rows
       // .filter(row => row.col12 !== null && row.col13 != null && row.col14 != null)
+      .filter(row => pollinators.length > 0 ? row.col5.split(', ').some(r => pollinatorList.includes(r)) : true)
       .filter(row => colours.length > 0 ? row.col16.split(', ').some(r => colourList.includes(r)) : true)
       .filter(row => soilMoisture.length > 0 ? row.col17.split(', ').some(r => soilMoistureList.includes(r)) : true)
       .filter(row => sunExposure.length > 0 ? row.col18.split(', ').some(r => sunExposureList.includes(r)) : true)
@@ -181,7 +197,7 @@ const App = () => {
       newData
     )
 
-  }, [soilMoisture, sunExposure, colours, geography, dateSlider])
+  }, [soilMoisture, sunExposure, colours, pollinators, geography, dateSlider])
 
   // Set the minimum and maximum date labels to display on the timeframe selector
   useEffectIf((dates && dateSlider), () => {
@@ -201,7 +217,7 @@ useEffect(() => {
   } else if (activeStep===1) {
     moduleContent = <Module2 Item={ Item } activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
   } else if (activeStep===2) {
-    moduleContent = <Module3 Item={ Item } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
+    moduleContent = <Module3 Item={ Item } filterPollinators={ filterPollinators } pollinators={ pollinators } setPollinators={ setPollinators } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
                     filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 
                     filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } 
                     dates={ dates } dateSlider={ dateSlider } setDateSlider={ setDateSlider } minDateValue={ minDateValue } maxDateValue={ maxDateValue }
