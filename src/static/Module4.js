@@ -12,7 +12,10 @@ function Module4({ Item, rows, rowData, setRowData }) {
           <img src={params.value} height="80"></img>
         ),
       },
-      { field: 'col1', headerName: 'Botanical Name', width: 200 },
+      { field: 'col1', headerName: 'Botanical Name', width: 200, renderCell: (params) => (
+        <em>{params.value}</em>
+      ),
+      },
       { field: 'col2', headerName: 'Common Name', width: 200 },
       { field: 'col3', headerName: 'Plant type', width: 125 },
       { field: 'col5', headerName: 'Pollinators', width: 125 },

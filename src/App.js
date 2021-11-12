@@ -144,24 +144,44 @@ const App = () => {
 
   }, [activeStep])
 
-  useEffectIf((soilMoisture, sunExposure, colours, geography), () => {
+  useEffectIf((soilMoisture, sunExposure, colours, geography, dateSlider), () => {
 
     var colourList = [...colours.map(obj => obj.label)]
     var soilMoistureList = [...soilMoisture.map(obj => obj.label)]
     var sunExposureList = [...sunExposure.map(obj => obj.label)]
 
-    setRowData(
-      rows
+    var seasonStart = dates.filter(obj => obj.value == dateSlider[0])[0].label
+    var seasonEnd = dates.filter(obj => obj.value == dateSlider[1])[0].label
+
+    var seasonList = dates.filter(obj => (obj.value >= dateSlider[0] & obj.value <= dateSlider[1])).map(obj => obj.label)
+
+    console.log(seasonList)
+
+    var newData = rows
       // .filter(row => row.col12 !== null && row.col13 != null && row.col14 != null)
       .filter(row => colours.length > 0 ? row.col16.split(', ').some(r => colourList.includes(r)) : true)
       .filter(row => soilMoisture.length > 0 ? row.col17.split(', ').some(r => soilMoistureList.includes(r)) : true)
       .filter(row => sunExposure.length > 0 ? row.col18.split(', ').some(r => sunExposureList.includes(r)) : true)
+      .filter(row => row.col22.split(', ').some(r => seasonList.includes(r)))
+      .filter(row => row.col23.split(', ').some(r => seasonList.includes(r)))
       .filter(row => {
         return geography.length > 0 ? geography.includes(row.col19) : true
       }) // If one or more geographies selected filter to geography, otherwise include all geographies
-      )
+      .map(obj => ({col15: obj.col15, col1: obj.col1, col2: obj.col2, col3: obj.col3, col5: obj.col5, col12: obj.col12, col13: obj.col13, col14: obj.col14, col20: obj.col20, col21: obj.col21 }))
 
-  }, [soilMoisture, sunExposure, colours, geography])
+    function getUniqueListBy(arr, key) {
+        return [...new Map(arr.map(item => [item[key], item])).values()]
+    }
+
+    var newData = getUniqueListBy(newData, 'col1').map((obj, idx) => ({...obj, id: idx}))
+
+    console.log(newData)
+
+    setRowData(
+      newData
+    )
+
+  }, [soilMoisture, sunExposure, colours, geography, dateSlider])
 
   // Set the minimum and maximum date labels to display on the timeframe selector
   useEffectIf((dates && dateSlider), () => {
