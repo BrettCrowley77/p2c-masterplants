@@ -11,7 +11,7 @@ function CustomAppBar() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h2" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h2" sx={{ flexGrow: 1 }}>
                 Find Your Roots
             </Typography>
             <Box sx={{marginTop: 3}}>
@@ -19,7 +19,7 @@ function CustomAppBar() {
             </Box>
           </Toolbar>
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
                 A guide for finding the most suitable, pollinator-friendly native plants for your region
             </Typography>
           </Toolbar>
