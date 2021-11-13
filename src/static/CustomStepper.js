@@ -57,7 +57,7 @@ export default function HorizontalLinearStepper({ activeStep, skipped, setActive
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', paddingLeft: 10, paddingRight: 10 }}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
