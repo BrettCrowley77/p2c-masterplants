@@ -33,7 +33,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
     return(
         <Container fluid>
             <Row>
-                <Col xs={12} sm={4}>
+                <Col md={12} lg={4}>
                     <Paper className={paperClasses.paper}>
                         <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
                         Now that we’ve generated a list of native plants that will support pollinators in
@@ -44,7 +44,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                         </Typography>
                     </Paper>
                 </Col>
-                <Col xs={12} sm={8}>
+                <Col md={12} lg={8}>
                     <Paper className={paperClasses.paper}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} lg={6}>
@@ -53,7 +53,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                                     </Typography>
                                     <br></br>
                                     <Item>
-                                        <SelectFilter filterOptions={ filterSoilMoisture } stateVar={ soilMoisture } setStateVar={ setSoilMoisture } placeholder={ "Select one or more soil moisture states" } />
+                                        <SelectFilter filterOptions={ filterSoilMoisture } stateVar={ soilMoisture } setStateVar={ setSoilMoisture } placeholder={ "(Soil moisture)" } />
                                     </Item>
                             </Grid>
                             <Grid item xs={12} lg={6}>
@@ -62,7 +62,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                                     </Typography>
                                     <br></br>
                                     <Item>
-                                        <SelectFilter filterOptions={ filterSunExposure } stateVar={ sunExposure } setStateVar={ setSunExposure } placeholder={ "Select one or more sun exposure levels" } />
+                                        <SelectFilter filterOptions={ filterSunExposure } stateVar={ sunExposure } setStateVar={ setSunExposure } placeholder={ "(Sun exposure)" } />
                                     </Item>
                             </Grid>
                             <Grid item xs={12} lg={6}>
@@ -71,16 +71,16 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                                     </Typography>
                                     <br></br>
                                     <Item>
-                                        <SelectFilter filterOptions={ filterPollinators } stateVar={ pollinators } setStateVar={ setPollinators } placeholder={ "Select one or more pollinators" } />
+                                        <SelectFilter filterOptions={ filterPollinators } stateVar={ pollinators } setStateVar={ setPollinators } placeholder={ "(Pollinator)" } />
                                     </Item>
                             </Grid>
                             <Grid item xs={12} lg={6}>
                                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
-                                        Choose one or more plant colours:
+                                        Choose one or more flower colours:
                                     </Typography>
                                     <br></br>
                                     <Item>
-                                        <SelectFilter filterOptions={ filterColours } stateVar={ colours } setStateVar={ setColours } placeholder={ "Select one or more colours" } />
+                                        <SelectFilter filterOptions={ filterColours } stateVar={ colours } setStateVar={ setColours } placeholder={ "(Flower colour)" } />
                                     </Item>
                             </Grid>
                             <Grid item xs={12} lg={6}>

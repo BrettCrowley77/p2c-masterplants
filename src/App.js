@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 import CustomAppBar from './static/CustomAppBar.js'
 import CustomStepper from './static/CustomStepper.js'
+import CustomStepperMobile from './static/CustomStepperMobile.js'
 import Module1 from './static/Module1.js'
 import Module2 from './static/Module2.js'
 import Module3 from './static/Module3.js'
@@ -18,7 +19,10 @@ const theme = createTheme({
     typography: {
         fontFamily: "'Montserrat', sans-serif",
         body1: {
-          fontSize: 20
+          fontSize: 16
+        },
+        body2: {
+          fontSize: 12
         }
     }
 });
@@ -109,6 +113,8 @@ ecoregions.features = ecoregions.features.filter(item => {
 
 const App = () => {
 
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
 
@@ -138,6 +144,16 @@ const App = () => {
   const useEffectIf = (condition, fn, dependencies) => {
     useEffect(() => condition && fn(), dependencies)
   }
+
+  const updateMedia = () => {
+    setScreenSize(window.innerWidth);
+    console.log(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
 
   const wrapperSetDateSlider = useCallback(val => {
     setDateSlider(val)
@@ -226,11 +242,19 @@ useEffect(() => {
     moduleContent = <Module4 Item={ Item } theme={ theme }  rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
   }
 
+  let stepperContent;
+
+  if (screenSize > 683) {
+    stepperContent = <CustomStepper activeStep={ activeStep } skipped={ skipped } setActiveStep={ setActiveStep } setSkipped={ setSkipped }/>
+  } else {
+    stepperContent = <CustomStepperMobile activeStep={ activeStep } skipped={ skipped } setActiveStep={ setActiveStep } setSkipped={ setSkipped }/>
+  }
+
       return (
           <ThemeProvider theme={theme}>
-            <CustomAppBar />
+            <CustomAppBar screenSize={screenSize} />
             <br></br>
-            <CustomStepper activeStep={ activeStep } skipped={ skipped } setActiveStep={ setActiveStep } setSkipped={ setSkipped }/>
+            {stepperContent}
             <br></br>
             {moduleContent}
             <br></br>

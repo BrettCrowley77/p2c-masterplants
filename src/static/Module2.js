@@ -15,7 +15,7 @@ function Module2({ Item, activeStep, geography, setGeography, codes, setCodes, m
     return(
         <Container fluid>
             <Row>
-                <Col xs={12} md={3}>
+                <Col md={12} lg={3}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                                 <Item>
@@ -25,11 +25,15 @@ function Module2({ Item, activeStep, geography, setGeography, codes, setCodes, m
                                     </Typography>
                                     <br></br>
                                     <SelectGeography activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes }  map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
+                                    <br></br>
+                                    <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
+                                    Lists are currently available only for the areas in green. If there is no list for your region, select the closest region, and reach out to us about creating a native pollinator plant list for your area!
+                                    </Typography>
                                 </Item>
                         </Grid>
                     </Grid>
                 </Col>
-                <Col xs={12} md={9}>
+                <Col md={12} lg={9}>
                     <Paper>
                         <CustomMap activeStep={ activeStep } geography={ geography } setGeography={ setGeography } map={ map } ecoregions={ ecoregions } postalcodes={ postalcodes } codes={ codes } setCodes={ setCodes } getUniqueFeatures={ getUniqueFeatures }/>
                     </Paper>

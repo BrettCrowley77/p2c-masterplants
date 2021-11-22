@@ -16,7 +16,7 @@ function Module1({ Item }) {
         <Row>
             <Col xs={12}>
                 <Grid container spacing={3}>
-                    <Grid item xs={6}>
+                    <Grid item md={6} sm={12}>
                             <Item>
                                 <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
                                     Welcome to Pollinator Partnership Canada's Pollinator Plant Selection Tool, <em>Find Your Roots</em>. The tool is based on the lists of native plants that support pollinators from our <a href="https://pollinatorpartnership.ca/en/ecoregional-planting-guides" target="_blank">Ecoregional Planting guide series</a>. Guides contain detailed information on pollinators, how to help them, and feature specific ecoregional information. Use this tool to make it easier to create customized plant lists for your region and requirements.
@@ -27,12 +27,12 @@ function Module1({ Item }) {
                                 </Typography>
                                 <br></br>
                                 <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
-                                    For App feedback contact Lora Morandin, Research and Conservation Director, Pollinator Partnership at <a href="mailto: LM@pollinator.org">LM@pollinator.org</a>.
+                                    For App feedback contact Pollinator Partnership Canada at <a href="mailto: info@pollinatorpartnership.ca">info@pollinatorpartnership.ca</a>.
                                 </Typography>
                             </Item>
                     </Grid>
-                    <Grid item xs={6} style={{ padding: 20 }}>
-                        <img src={bee_image} width="100%" style={{ marginRight: 20, borderRadius: 50 }} />
+                    <Grid item md={6} sm={12} style={{ paddingLeft: 20, paddingTop: 20, paddingBottom: 20 }}>
+                        <img src={bee_image} width="100%" style={{ borderRadius: 50 }} />
                     </Grid>
                 </Grid>
             </Col>

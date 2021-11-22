@@ -11,25 +11,27 @@ import Col from 'react-bootstrap/Col';
 import logo from './Images/Logo-ClearBkgrnd.png';
 import beelogo from './Images/beelogo.png';
 
-function CustomAppBar() {
+function CustomAppBar({ screenSize }) {
+
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <Box>
-                <img src={beelogo} width="200px" style={{ paddingRight: 20 }} />
-            </Box>
-            <Box sx={{ flexGrow: 1 }}>
-              <Typography variant="h2" sx={{ flexGrow: 1 }}>
-                  Find Your Roots
-              </Typography>
-              <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                  A guide for finding the most suitable, pollinator-friendly native plants for your region
-              </Typography>
-            </Box>
-            <Box>
-                <img src={logo} />
-            </Box>
+              <Col xs={2}>
+                <Box>
+                  <img src={beelogo} width="100%" style={{ paddingRight: 20 }} />
+                </Box>
+              </Col>
+              <Col xs={10}>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Typography variant="h2" sx={{ flexGrow: 1 }} style={{ fontSize:"6vw" }}>
+                      Find Your Roots
+                  </Typography>
+                  <Typography variant="h6" sx={{ flexGrow: 1 }} style={{ fontSize:"2vw" }}>
+                  A tool for creating pollinator-friendly native plant lists for your habitat project
+                  </Typography>
+                </Box>
+              </Col>
           </Toolbar>
         </AppBar>
       </Box>

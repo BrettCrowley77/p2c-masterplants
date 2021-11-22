@@ -13,6 +13,9 @@ const DateSliderTheme = createTheme({
           height: 8
         },
         active: {},
+        markLabel: {
+          fontSize: 10
+        }
       }
     }
   });
@@ -30,10 +33,10 @@ export default function SelectSeason({ dates, dateSlider, setDateSlider, minDate
   return (
     <Box style={{ marginLeft: 20, marginRight: 20 }}>
         <ThemeProvider theme={DateSliderTheme}>
-            <Typography id="date-slider" gutterBottom>
+            <Typography id="date-slider" variant="body2" gutterBottom>
             {minDate == maxDate ? minDate : minDate+" - "+maxDate}
             </Typography>
-            <Slider
+            <Slider sx={{ fontSize: 12 }}
             min={minDateValue}
             max={maxDateValue}
             step={null}
