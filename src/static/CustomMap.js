@@ -8,12 +8,22 @@ const styles = {
 
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJldHQ3NyIsImEiOiJja3QwanZ6NDQwNXl6MzJuMDdsanVtamY0In0.2ij5RMkF9AYtSSag_66tcQ";
 
-const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, postalcodes, codes, setCodes, getUniqueFeatures }) => {
+const CustomMap = ({ activeStep, screenSize, mapZoom, useEffectIf, geography, setGeography, map, ecoregions, postalcodes, codes, setCodes, getUniqueFeatures }) => {
   const mapContainer = useRef(null);
 
 //  console.log(mod1MapData)
 
-  useEffect(() => {
+useEffect(() => {
+
+  if (map.current) {
+    map.current.setZoom(mapZoom);
+  }
+
+  return;
+
+}, [mapZoom])
+
+useEffect(() => {
 
     var matchExpression = ['match', ['get', 'ECOREGION']];
 
@@ -38,7 +48,7 @@ const CustomMap = ({ activeStep, geography, setGeography, map, ecoregions, posta
             container: mapContainer.current,
             style: "mapbox://styles/mapbox/light-v10", // stylesheet location
             center: [-93, 53],
-            zoom: 3.2
+            zoom: mapZoom
       });
 
       map.current.on('load', () => {

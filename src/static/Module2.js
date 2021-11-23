@@ -10,12 +10,12 @@ import Col from 'react-bootstrap/Col';
 import CustomMap from './CustomMap.js'
 import SelectGeography from './SelectGeography.js'
 
-function Module2({ Item, activeStep, geography, setGeography, codes, setCodes, map, getUniqueFeatures, ecoregions, idList, postalcodes }) {
+function Module2({ Item, screenSize, mapZoom, useEffectIf, activeStep, geography, setGeography, codes, setCodes, map, getUniqueFeatures, ecoregions, idList, postalcodes }) {
 
     return(
         <Container fluid>
             <Row>
-                <Col md={12} lg={3}>
+                <Col md={12} lg={3} style={{ paddingBottom: 20 }} >
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                                 <Item>
@@ -33,9 +33,9 @@ function Module2({ Item, activeStep, geography, setGeography, codes, setCodes, m
                         </Grid>
                     </Grid>
                 </Col>
-                <Col md={12} lg={9}>
+                <Col md={12} lg={9} style={{ paddingBottom: 20 }} >
                     <Paper>
-                        <CustomMap activeStep={ activeStep } geography={ geography } setGeography={ setGeography } map={ map } ecoregions={ ecoregions } postalcodes={ postalcodes } codes={ codes } setCodes={ setCodes } getUniqueFeatures={ getUniqueFeatures }/>
+                        <CustomMap activeStep={ activeStep } useEffectIf={useEffectIf} screenSize={screenSize} mapZoom={mapZoom} geography={ geography } setGeography={ setGeography } map={ map } ecoregions={ ecoregions } postalcodes={ postalcodes } codes={ codes } setCodes={ setCodes } getUniqueFeatures={ getUniqueFeatures }/>
                     </Paper>
                 </Col>
             </Row>

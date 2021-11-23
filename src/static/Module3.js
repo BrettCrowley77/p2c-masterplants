@@ -33,7 +33,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
     return(
         <Container fluid>
             <Row>
-                <Col md={12} lg={4}>
+                <Col md={12} lg={4} style={{ paddingBottom: 20 }} >
                     <Paper className={paperClasses.paper}>
                         <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
                         Now that we’ve generated a list of native plants that will support pollinators in
@@ -44,7 +44,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                         </Typography>
                     </Paper>
                 </Col>
-                <Col md={12} lg={8}>
+                <Col md={12} lg={8} style={{ paddingBottom: 20 }} >
                     <Paper className={paperClasses.paper}>
                         <Grid container spacing={3}>
                             <Grid item xs={12} lg={6}>

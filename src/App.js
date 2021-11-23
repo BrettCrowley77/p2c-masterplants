@@ -114,6 +114,7 @@ ecoregions.features = ecoregions.features.filter(item => {
 const App = () => {
 
   const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [mapZoom, setMapZoom] = useState(3.5);
 
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set());
@@ -149,6 +150,10 @@ const App = () => {
     setScreenSize(window.innerWidth);
     console.log(window.innerWidth);
   };
+
+  useEffectIf((screenSize), () => {
+    screenSize > 991 ? setMapZoom(screenSize / 450) : setMapZoom(screenSize / 350)
+  }, [screenSize])
 
   useEffect(() => {
     window.addEventListener("resize", updateMedia);
@@ -230,7 +235,7 @@ useEffect(() => {
   if (activeStep===0) {
     moduleContent = <Module1 Item={ Item } theme={ theme } />
   } else if (activeStep===1) {
-    moduleContent = <Module2 Item={ Item } theme={ theme }  activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
+    moduleContent = <Module2 Item={ Item } useEffectIf={useEffectIf} screenSize={screenSize} mapZoom={mapZoom} theme={ theme }  activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
   } else if (activeStep===2) {
     moduleContent = <Module3 Item={ Item } theme={ theme }  filterPollinators={ filterPollinators } pollinators={ pollinators } setPollinators={ setPollinators } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
                     filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 

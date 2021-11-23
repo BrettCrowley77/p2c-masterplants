@@ -137,7 +137,7 @@ export default function SelectGeography({ activeStep, geography, setGeography, c
                         </div>
                       ),
                     } }
-                    placeholder="Select one or more postal codes"
+                    placeholder="(Postal code)"
                   />
                 );
               } }
