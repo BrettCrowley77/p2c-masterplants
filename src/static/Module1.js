@@ -3,6 +3,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 
 import bee_image from "./Images/honey_bee_black_eyed_susan3_Tiffani_Harrison.JPG";
 
-function Module1({ Item }) {
+function Module1({ Item, handleNext }) {
     return(
     <Container fluid>
         <Row>
@@ -29,6 +30,12 @@ function Module1({ Item }) {
                                 <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
                                     For App feedback contact Pollinator Partnership Canada at <a href="mailto: info@pollinatorpartnership.ca">info@pollinatorpartnership.ca</a>.
                                 </Typography>
+                                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} >
+                                    <Box sx={{ flex: '1 1 auto' }} />
+                                    <Button onClick={handleNext}>
+                                        Next: Select region
+                                    </Button>
+                                </Box>
                             </Item>
                     </Grid>
                     <Grid item md={6} sm={12} style={{ paddingLeft: 20, paddingTop: 20, paddingBottom: 20 }}>

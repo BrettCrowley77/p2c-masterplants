@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Container from 'react-bootstrap/Container';
@@ -26,7 +28,7 @@ const paperStyles = makeStyles((theme) => ({
   }));
 
 function Module3({ Item, filterPollinators, pollinators, setPollinators, filterColours, colours, setColours, filterSoilMoisture, soilMoisture, setSoilMoisture, filterSunExposure, sunExposure, setSunExposure,
-                    dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate, setMinDate, setMaxDate, wrapperSetDateSlider, handleDateChange }) {
+                    dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate, setMinDate, setMaxDate, wrapperSetDateSlider, handleDateChange, handleNext }) {
 
     const paperClasses = paperStyles();
 
@@ -42,6 +44,12 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                         We recommend customizing the 'Sun Requirements' and 'Soil Moisture' filters to suit
                         your growing conditions. The other filters are optional based on your preferences.
                         </Typography>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} >
+                            <Box sx={{ flex: '1 1 auto' }} />
+                            <Button onClick={handleNext}>
+                                Next: View plants
+                            </Button>
+                        </Box>
                     </Paper>
                 </Col>
                 <Col md={12} lg={8} style={{ paddingBottom: 20 }} >

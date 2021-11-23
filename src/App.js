@@ -72,14 +72,9 @@ const dates = [
 var filterPollinators = [
   {id: 1, label: 'bees'},
   {id: 2, label: 'flies'},
-  {id: 3, label: 'beetles'},
-  {id: 4, label: 'butterflies'},
-  {id: 5, label: 'hummingbirds'},
-  {id: 6, label: 'moths'},
-  {id: 7, label: 'gnats'},
-  {id: 8, label: 'thrips'},
-  {id: 9, label: 'wasps'},
-  {id: 10, label: 'other insects'},
+  {id: 3, label: 'butterflies'},
+  {id: 4, label: 'hummingbirds'},
+  {id: 5, label: 'other'},
 ]
 
 var filterColours = [
@@ -99,7 +94,7 @@ var filterSoilMoisture = [
 
 var filterSunExposure = [
   {id: 1, label: 'sun'},
-  {id: 2, label: 'partial sun to shade'},
+  {id: 2, label: 'partial sun to partial shade'},
   {id: 3, label: 'shade'},
 ]
 
@@ -117,7 +112,6 @@ const App = () => {
   const [mapZoom, setMapZoom] = useState(3.5);
 
   const [activeStep, setActiveStep] = useState(0);
-  const [skipped, setSkipped] = useState(new Set());
 
   const [geography, setGeography] = useState([]);
   const [codes, setCodes] = useState([]);
@@ -134,6 +128,23 @@ const App = () => {
   const [maxDateValue, setMaxDateValue] = useState(Math.max.apply(Math, dates.map(function(date) { return date.value; })))
   const [minDate, setMinDate] = useState('Early Spring')
   const [maxDate, setMaxDate] = useState('Autumn')
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
 
   const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(2),
@@ -194,16 +205,16 @@ const App = () => {
 
     var newData = rows
       // .filter(row => row.col12 !== null && row.col13 != null && row.col14 != null)
-      .filter(row => pollinators.length > 0 ? row.col5.split(', ').some(r => pollinatorList.includes(r)) : true)
+      .filter(row => pollinators.length > 0 ? row.col19.split(', ').some(r => pollinatorList.includes(r)) : true)
       .filter(row => colours.length > 0 ? row.col16.split(', ').some(r => colourList.includes(r)) : true)
       .filter(row => soilMoisture.length > 0 ? row.col17.split(', ').some(r => soilMoistureList.includes(r)) : true)
       .filter(row => sunExposure.length > 0 ? row.col18.split(', ').some(r => sunExposureList.includes(r)) : true)
-      .filter(row => row.col22.split(', ').some(r => seasonList.includes(r)))
       .filter(row => row.col23.split(', ').some(r => seasonList.includes(r)))
+      .filter(row => row.col24.split(', ').some(r => seasonList.includes(r)))
       .filter(row => {
-        return geography.length > 0 ? geography.includes(row.col19) : true
+        return geography.length > 0 ? geography.includes(row.col20) : true
       }) // If one or more geographies selected filter to geography, otherwise include all geographies
-      .map(obj => ({col15: obj.col15, col1: obj.col1, col2: obj.col2, col3: obj.col3, col5: obj.col5, col12: obj.col12, col13: obj.col13, col14: obj.col14, col20: obj.col20, col21: obj.col21 }))
+      .map(obj => ({col15: obj.col15, col1: obj.col1, col2: obj.col2, col3: obj.col3, col5: obj.col5, col12: obj.col12, col13: obj.col13, col14: obj.col14, col21: obj.col21, col22: obj.col22 }))
 
     function getUniqueListBy(arr, key) {
         return [...new Map(arr.map(item => [item[key], item])).values()]
@@ -233,16 +244,18 @@ useEffect(() => {
   let moduleContent;
 
   if (activeStep===0) {
-    moduleContent = <Module1 Item={ Item } theme={ theme } />
+    moduleContent = <Module1 Item={ Item } theme={ theme } handleNext={handleNext} />
   } else if (activeStep===1) {
-    moduleContent = <Module2 Item={ Item } useEffectIf={useEffectIf} screenSize={screenSize} mapZoom={mapZoom} theme={ theme }  activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
+    moduleContent = <Module2 Item={ Item } useEffectIf={useEffectIf} screenSize={screenSize} mapZoom={mapZoom} theme={ theme }  activeStep={ activeStep } 
+                    geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes } map={ map } getUniqueFeatures={ getUniqueFeatures }
+                    ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes } handleNext={handleNext}  />
   } else if (activeStep===2) {
     moduleContent = <Module3 Item={ Item } theme={ theme }  filterPollinators={ filterPollinators } pollinators={ pollinators } setPollinators={ setPollinators } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
                     filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 
                     filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } 
                     dates={ dates } dateSlider={ dateSlider } setDateSlider={ setDateSlider } minDateValue={ minDateValue } maxDateValue={ maxDateValue }
                     minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate } wrapperSetDateSlider={ wrapperSetDateSlider }
-                    handleDateChange={ handleDateChange }/>
+                    handleDateChange={ handleDateChange } handleNext={handleNext} />
   } else if (activeStep===3) {
     moduleContent = <Module4 Item={ Item } theme={ theme }  rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
   }
@@ -250,9 +263,9 @@ useEffect(() => {
   let stepperContent;
 
   if (screenSize > 683) {
-    stepperContent = <CustomStepper activeStep={ activeStep } skipped={ skipped } setActiveStep={ setActiveStep } setSkipped={ setSkipped }/>
+    stepperContent = <CustomStepper activeStep={ activeStep } setActiveStep={ setActiveStep } handleNext={handleNext} handleBack={handleBack} handleStep={handleStep} handleReset={handleReset} />
   } else {
-    stepperContent = <CustomStepperMobile activeStep={ activeStep } skipped={ skipped } setActiveStep={ setActiveStep } setSkipped={ setSkipped }/>
+    stepperContent = <CustomStepperMobile activeStep={ activeStep } setActiveStep={ setActiveStep } handleNext={handleNext} handleBack={handleBack} handleStep={handleStep} handleReset={handleReset} />
   }
 
       return (
