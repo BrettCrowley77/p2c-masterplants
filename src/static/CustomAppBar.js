@@ -27,7 +27,7 @@ function CustomAppBar({ screenSize }) {
                   <Typography variant="h2" sx={{ flexGrow: 1 }} style={{ fontSize:"6vw" }}>
                       Find Your Roots
                   </Typography>
-                  {screenSize > 500 ? (<Typography variant="h6" sx={{ flexGrow: 1 }} style={{ fontSize:"2vw" }}>
+                  {screenSize > 500 ? (<Typography variant="h6" sx={{ flexGrow: 1 }} style={{ fontSize:"1.5vw" }}>
                     A tool for creating pollinator-friendly native plant lists for your habitat project
                   </Typography>) : (<></>) }
                 </Box>

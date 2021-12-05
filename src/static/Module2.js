@@ -29,7 +29,7 @@ function Module2({ Item, screenSize, mapZoom, useEffectIf, activeStep, geography
                                     <SelectGeography activeStep={ activeStep } geography={ geography } setGeography={ setGeography } codes={ codes } setCodes={ setCodes }  map={ map } getUniqueFeatures={ getUniqueFeatures } ecoregions={ ecoregions } idList={ idList } postalcodes={ postalcodes }/>
                                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} >
                                         <Box sx={{ flex: '1 1 auto' }} />
-                                        <Button onClick={handleNext}>
+                                        <Button variant="outlined" sx={{ color: "#4D4F53", borderColor: "#4D4F53" }} onClick={handleNext}>
                                             Next: Apply filters
                                         </Button>
                                     </Box>

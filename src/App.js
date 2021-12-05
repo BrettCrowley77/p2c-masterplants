@@ -19,10 +19,12 @@ const theme = createTheme({
     typography: {
         fontFamily: "'Montserrat', sans-serif",
         body1: {
-          fontSize: 16
+          fontSize: 18,
+          color: '#4D4F53'
         },
         body2: {
-          fontSize: 12
+          fontSize: 14,
+          color: '#4D4F53'
         }
     }
 });
@@ -98,6 +100,13 @@ var filterSunExposure = [
   {id: 3, label: 'shade'},
 ]
 
+var filterPlantType = [
+  {id: 1, label: 'tree'},
+  {id: 2, label: 'shrub'},
+  {id: 3, label: 'forb'},
+  {id: 4, label: 'vine'}
+]
+
 postalcodes = postalcodes.filter(obj => obj.FIELD2.split(', ').map(Number).some(r => idList.includes(r)))
 
 ecoregions.features = ecoregions.features.filter(item => {
@@ -121,6 +130,7 @@ const App = () => {
   const [soilMoisture, setSoilMoisture] = useState([]);
   const [sunExposure, setSunExposure] = useState([]);
   const [pollinators, setPollinators] = useState([]);
+  const [plantTypes, setPlantTypes] = useState([]);
   const [rowData, setRowData] = useState(rows);
 
   const [dateSlider, setDateSlider] = useState([Math.min.apply(Math, dates.map(function(date) { return date.value; })), Math.max.apply(Math, dates.map(function(date) { return date.value; }))]);
@@ -131,7 +141,6 @@ const App = () => {
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
@@ -159,7 +168,6 @@ const App = () => {
 
   const updateMedia = () => {
     setScreenSize(window.innerWidth);
-    console.log(window.innerWidth);
   };
 
   useEffectIf((screenSize), () => {
@@ -189,19 +197,20 @@ const App = () => {
 
   }, [activeStep])
 
-  useEffectIf((soilMoisture, sunExposure, colours, pollinators, geography, dateSlider), () => {
+  useEffectIf((soilMoisture, sunExposure, colours, pollinators, plantTypes, geography, dateSlider), () => {
 
     var pollinatorList = [...pollinators.map(obj => obj.label)]
     var colourList = [...colours.map(obj => obj.label)]
     var soilMoistureList = [...soilMoisture.map(obj => obj.label)]
     var sunExposureList = [...sunExposure.map(obj => obj.label)]
+    var plantTypeList = [...plantTypes.map(obj => obj.label)]
 
     var seasonStart = dates.filter(obj => obj.value == dateSlider[0])[0].label
     var seasonEnd = dates.filter(obj => obj.value == dateSlider[1])[0].label
 
     var seasonList = dates.filter(obj => (obj.value >= dateSlider[0] & obj.value <= dateSlider[1])).map(obj => obj.label)
 
-    console.log(seasonList)
+    console.log(plantTypes)
 
     var newData = rows
       // .filter(row => row.col12 !== null && row.col13 != null && row.col14 != null)
@@ -209,6 +218,7 @@ const App = () => {
       .filter(row => colours.length > 0 ? row.col16.split(', ').some(r => colourList.includes(r)) : true)
       .filter(row => soilMoisture.length > 0 ? row.col17.split(', ').some(r => soilMoistureList.includes(r)) : true)
       .filter(row => sunExposure.length > 0 ? row.col18.split(', ').some(r => sunExposureList.includes(r)) : true)
+      .filter(row => plantTypes.length > 0 ? row.col3.split(' ').some(r => plantTypeList.includes(r)) : true)
       .filter(row => row.col23.split(', ').some(r => seasonList.includes(r)))
       .filter(row => row.col24.split(', ').some(r => seasonList.includes(r)))
       .filter(row => {
@@ -222,23 +232,19 @@ const App = () => {
 
     var newData = getUniqueListBy(newData, 'col1').map((obj, idx) => ({...obj, id: idx}))
 
-    console.log(newData)
-
     setRowData(
       newData
     )
 
-  }, [soilMoisture, sunExposure, colours, pollinators, geography, dateSlider])
+  }, [soilMoisture, sunExposure, colours, pollinators, plantTypes, geography, dateSlider])
 
   // Set the minimum and maximum date labels to display on the timeframe selector
   useEffectIf((dates && dateSlider), () => {
-    console.log(dateSlider)
     setMinDate(dates.find((date) => date.value === dateSlider[0]).label);
     setMaxDate(dates.find((date) => date.value === dateSlider[1]).label);
   }, [dateSlider])
 
 useEffect(() => {
-  console.log(geography)
 }, [geography])
 
   let moduleContent;
@@ -252,7 +258,7 @@ useEffect(() => {
   } else if (activeStep===2) {
     moduleContent = <Module3 Item={ Item } theme={ theme }  filterPollinators={ filterPollinators } pollinators={ pollinators } setPollinators={ setPollinators } filterColours={ filterColours } colours={ colours } setColours={ setColours } 
                     filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 
-                    filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } 
+                    filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } filterPlantType={ filterPlantType } plantTypes={ plantTypes } setPlantTypes={ setPlantTypes }
                     dates={ dates } dateSlider={ dateSlider } setDateSlider={ setDateSlider } minDateValue={ minDateValue } maxDateValue={ maxDateValue }
                     minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate } wrapperSetDateSlider={ wrapperSetDateSlider }
                     handleDateChange={ handleDateChange } handleNext={handleNext} />

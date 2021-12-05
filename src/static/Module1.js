@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import bee_image from "./Images/honey_bee_black_eyed_susan3_Tiffani_Harrison.JPG";
+import bee_image from "./Images/DSCN0129-bowen.jpg";
 
 function Module1({ Item, handleNext }) {
     return(
@@ -32,7 +32,7 @@ function Module1({ Item, handleNext }) {
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} >
                                     <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button onClick={handleNext}>
+                                    <Button variant="outlined" sx={{ color: "#4D4F53", borderColor: "#4D4F53" }} onClick={handleNext}>
                                         Next: Select region
                                     </Button>
                                 </Box>

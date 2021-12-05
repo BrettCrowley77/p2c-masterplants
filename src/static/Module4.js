@@ -32,7 +32,7 @@ function Module4({ Item, theme, rows, rowData, setRowData }) {
           <Item>
             <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
               The plants listed in the table below are native to your region and will support pollinators.
-              Click on the <em>'Columns'</em> button at the top left to toggle columns off and on, and click on the 
+              Click on the <em>'Columns'</em> button at the top left to toggle columns off and on, and click on the  
               <em>'Filters'</em> button if you want to filter your list of plants even further. Once you're happy
               with your list, click the <em>'Export'</em> button to download your final list of plants.
             </Typography>

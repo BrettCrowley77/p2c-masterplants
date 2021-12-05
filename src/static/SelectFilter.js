@@ -17,10 +17,6 @@ export default function SelectFilter({ filterOptions, stateVar, setStateVar, pla
 
                 var optionList = filterOptions.map(obj => obj.label)
 
-                console.log(optionList)
-                console.log(e)
-                console.log(v)
-
                 if (optionList.includes(e.target.innerHTML)) { // i.e. if a tag is added
 
                     setStateVar(v)

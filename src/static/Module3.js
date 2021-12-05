@@ -27,7 +27,7 @@ const paperStyles = makeStyles((theme) => ({
     }
   }));
 
-function Module3({ Item, filterPollinators, pollinators, setPollinators, filterColours, colours, setColours, filterSoilMoisture, soilMoisture, setSoilMoisture, filterSunExposure, sunExposure, setSunExposure,
+function Module3({ Item, filterPollinators, pollinators, setPollinators, filterColours, colours, setColours, filterSoilMoisture, soilMoisture, setSoilMoisture, filterSunExposure, sunExposure, setSunExposure, filterPlantType, plantTypes, setPlantTypes,
                     dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate, setMinDate, setMaxDate, wrapperSetDateSlider, handleDateChange, handleNext }) {
 
     const paperClasses = paperStyles();
@@ -46,7 +46,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} >
                             <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleNext}>
+                            <Button variant="outlined" sx={{ color: "#4D4F53", borderColor: "#4D4F53" }} onClick={handleNext}>
                                 Next: View plants
                             </Button>
                         </Box>
@@ -55,6 +55,15 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                 <Col md={12} lg={8} style={{ paddingBottom: 20 }} >
                     <Paper className={paperClasses.paper}>
                         <Grid container spacing={3}>
+                            <Grid item xs={12} lg={6}>
+                                    <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
+                                        <b>(Recommended)</b> Choose one or more plant types:
+                                    </Typography>
+                                    <br></br>
+                                    <Item>
+                                        <SelectFilter filterOptions={ filterPlantType } stateVar={ plantTypes } setStateVar={ setPlantTypes } placeholder={ "(Plant type)" } />
+                                    </Item>
+                            </Grid>
                             <Grid item xs={12} lg={6}>
                                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
                                         <b>(Recommended)</b> Choose one or more soil moisture states:
