@@ -139,6 +139,12 @@ const App = () => {
   const [minDate, setMinDate] = useState('Early Spring')
   const [maxDate, setMaxDate] = useState('Autumn')
 
+  const [heightSlider, setHeightSlider] = useState([0, 75]);
+  const [minHeightValue, setMinHeightValue] = useState(0)
+  const [maxHeightValue, setMaxHeightValue] = useState(75)
+  const [minHeight, setMinHeight] = useState(0)
+  const [maxHeight, setMaxHeight] = useState(75)
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -179,13 +185,21 @@ const App = () => {
     return () => window.removeEventListener("resize", updateMedia);
   });
 
-  const wrapperSetDateSlider = useCallback(val => {
-    setDateSlider(val)
-  }, [setDateSlider])
+  // const wrapperSetDateSlider = useCallback(val => {
+  //   setDateSlider(val)
+  // }, [setDateSlider])
 
-  const handleDateChange = (event, newValue) => {
-    setDateSlider(newValue)
-  }
+  // const wrapperSetHeightSlider = useCallback(val => {
+  //   setHeightSlider(val)
+  // }, [setHeightSlider])
+
+  // const handleDateChange = (event, newValue) => {
+  //   setDateSlider(newValue)
+  // }
+
+  // const handleHeightChange = (event, newValue) => {
+  //   setHeightSlider(newValue)
+  // }
 
   useEffect(() => {
 
@@ -197,7 +211,7 @@ const App = () => {
 
   }, [activeStep])
 
-  useEffectIf((soilMoisture, sunExposure, colours, pollinators, plantTypes, geography, dateSlider), () => {
+  useEffectIf((soilMoisture, sunExposure, colours, pollinators, plantTypes, geography, dateSlider, heightSlider), () => {
 
     var pollinatorList = [...pollinators.map(obj => obj.label)]
     var colourList = [...colours.map(obj => obj.label)]
@@ -205,26 +219,28 @@ const App = () => {
     var sunExposureList = [...sunExposure.map(obj => obj.label)]
     var plantTypeList = [...plantTypes.map(obj => obj.label)]
 
-    var seasonStart = dates.filter(obj => obj.value == dateSlider[0])[0].label
-    var seasonEnd = dates.filter(obj => obj.value == dateSlider[1])[0].label
+    // var seasonStart = dates.filter(obj => obj.value == dateSlider[0])[0].label
+    // var seasonEnd = dates.filter(obj => obj.value == dateSlider[1])[0].label
 
     var seasonList = dates.filter(obj => (obj.value >= dateSlider[0] & obj.value <= dateSlider[1])).map(obj => obj.label)
 
-    console.log(plantTypes)
+    console.log(heightSlider)
 
     var newData = rows
       // .filter(row => row.col12 !== null && row.col13 != null && row.col14 != null)
-      .filter(row => pollinators.length > 0 ? row.col19.split(', ').some(r => pollinatorList.includes(r)) : true)
-      .filter(row => colours.length > 0 ? row.col16.split(', ').some(r => colourList.includes(r)) : true)
-      .filter(row => soilMoisture.length > 0 ? row.col17.split(', ').some(r => soilMoistureList.includes(r)) : true)
-      .filter(row => sunExposure.length > 0 ? row.col18.split(', ').some(r => sunExposureList.includes(r)) : true)
+      .filter(row => pollinators.length > 0 ? row.col18.split(', ').some(r => pollinatorList.includes(r)) : true)
+      .filter(row => colours.length > 0 ? row.col15.split(', ').some(r => colourList.includes(r)) : true)
+      .filter(row => soilMoisture.length > 0 ? row.col16.split(', ').some(r => soilMoistureList.includes(r)) : true)
+      .filter(row => sunExposure.length > 0 ? row.col17.split(', ').some(r => sunExposureList.includes(r)) : true)
       .filter(row => plantTypes.length > 0 ? row.col3.split(' ').some(r => plantTypeList.includes(r)) : true)
+      .filter(row => row.col22.split(', ').some(r => seasonList.includes(r)))
       .filter(row => row.col23.split(', ').some(r => seasonList.includes(r)))
-      .filter(row => row.col24.split(', ').some(r => seasonList.includes(r)))
+      .filter(row => row.col9 >= heightSlider[0])
+      .filter(row => row.col10 <= heightSlider[1])
       .filter(row => {
-        return geography.length > 0 ? geography.includes(row.col20) : true
+        return geography.length > 0 ? geography.includes(row.col19) : true
       }) // If one or more geographies selected filter to geography, otherwise include all geographies
-      .map(obj => ({col15: obj.col15, col1: obj.col1, col2: obj.col2, col3: obj.col3, col5: obj.col5, col12: obj.col12, col13: obj.col13, col14: obj.col14, col21: obj.col21, col22: obj.col22 }))
+      .map(obj => ({col14: obj.col14, col1: obj.col1, col2: obj.col2, col3: obj.col3, col5: obj.col5, col9: obj.col9, col10: obj.col10, col11: obj.col11, col12: obj.col12, col13: obj.col13, col20: obj.col20, col21: obj.col21 }))
 
     function getUniqueListBy(arr, key) {
         return [...new Map(arr.map(item => [item[key], item])).values()]
@@ -236,7 +252,7 @@ const App = () => {
       newData
     )
 
-  }, [soilMoisture, sunExposure, colours, pollinators, plantTypes, geography, dateSlider])
+  }, [soilMoisture, sunExposure, colours, pollinators, plantTypes, geography, dateSlider, heightSlider])
 
   // Set the minimum and maximum date labels to display on the timeframe selector
   useEffectIf((dates && dateSlider), () => {
@@ -244,8 +260,15 @@ const App = () => {
     setMaxDate(dates.find((date) => date.value === dateSlider[1]).label);
   }, [dateSlider])
 
-useEffect(() => {
-}, [geography])
+  // Set the minimum and maximum height labels to display on the height selector
+  useEffectIf((heightSlider), () => {
+    setMinHeight(heightSlider[0]);
+    setMaxHeight(heightSlider[1]);
+  }, [heightSlider])
+
+// useEffect(() => {
+
+// }, [geography])
 
   let moduleContent;
 
@@ -260,8 +283,11 @@ useEffect(() => {
                     filterSoilMoisture={ filterSoilMoisture } soilMoisture={ soilMoisture } setSoilMoisture={ setSoilMoisture } 
                     filterSunExposure={ filterSunExposure } sunExposure={ sunExposure } setSunExposure={ setSunExposure } filterPlantType={ filterPlantType } plantTypes={ plantTypes } setPlantTypes={ setPlantTypes }
                     dates={ dates } dateSlider={ dateSlider } setDateSlider={ setDateSlider } minDateValue={ minDateValue } maxDateValue={ maxDateValue }
-                    minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate } wrapperSetDateSlider={ wrapperSetDateSlider }
-                    handleDateChange={ handleDateChange } handleNext={handleNext} />
+                    minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate }
+                    handleNext={handleNext} 
+                    heightSlider={ heightSlider } setHeightSlider={ setHeightSlider } minHeightValue={ minHeightValue } maxHeightValue={ maxHeightValue }
+                    minHeight={ minHeight } maxHeight={ maxHeight } setMinHeight={ setMinHeight } setMaxHeight={ setMaxHeight }
+                    />
   } else if (activeStep===3) {
     moduleContent = <Module4 Item={ Item } theme={ theme }  rows={ rows } rowData={ rowData } setRowData={ setRowData }/>
   }

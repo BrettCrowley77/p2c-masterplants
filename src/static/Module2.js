@@ -22,7 +22,7 @@ function Module2({ Item, screenSize, mapZoom, useEffectIf, activeStep, geography
                         <Grid item xs={12}>
                                 <Item>
                                     <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-                                    Plants in this database support pollinators and are native to specific <a href="https://open.canada.ca/data/en/dataset/ade80d26-61f5-439e-8966-73b352811fe6" target="_blank">ecoregions in Canada</a>.
+                                    Plants in this database support pollinators and are native to specific <a style={{ color: '#6D8764' }}  href="https://open.canada.ca/data/en/dataset/ade80d26-61f5-439e-8966-73b352811fe6" target="_blank">ecoregions in Canada</a>.
                                     Start your list by getting only the plants that are native to your ecoregion by entering the first 3 digits of your postal code or clicking on your ecoregion on the map.
                                     </Typography>
                                     <br></br>

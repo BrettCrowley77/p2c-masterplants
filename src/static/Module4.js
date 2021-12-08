@@ -9,7 +9,7 @@ import CustomToolbar from './CustomToolbar.js';
 function Module4({ Item, theme, rows, rowData, setRowData }) {
 
     const columns = [
-      { field: 'col15', headerName: 'Image', width: 100, renderCell: (params) => (
+      { field: 'col14', headerName: 'Image', width: 100, renderCell: (params) => (
           <img src={params.value} height="80"></img>
         ),
       },
@@ -20,9 +20,11 @@ function Module4({ Item, theme, rows, rowData, setRowData }) {
       { field: 'col2', headerName: 'Common Name', width: 200 },
       { field: 'col3', headerName: 'Plant type', width: 125 },
       { field: 'col5', headerName: 'Pollinators', width: 125 },
-      { field: 'col12', headerName: 'Flower Colour', width: 125 },
-      { field: 'col13', headerName: 'Soil Moisture', width: 125 },
-      { field: 'col14', headerName: 'Sun Requirements', width: 125 },
+      { field: 'col9', headerName: 'Min Height (m)', width: 150 },
+      { field: 'col10', headerName: 'Max Height (m)', width: 150 },
+      { field: 'col11', headerName: 'Flower Colour', width: 125 },
+      { field: 'col12', headerName: 'Soil Moisture', width: 125 },
+      { field: 'col13', headerName: 'Sun Requirements', width: 175 },
       { field: 'col20', headerName: 'Season Start', width: 125 },
       { field: 'col21', headerName: 'Season End', width: 125 },
     ]

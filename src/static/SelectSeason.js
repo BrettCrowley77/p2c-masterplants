@@ -20,7 +20,7 @@ const DateSliderTheme = createTheme({
     }
   });
 
-export default function SelectSeason({ dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate, handleDateChange }) {
+export default function SelectSeason({ dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate }) {
 
     const valuetext = (value) => {
         return `${dates.filter(obj => obj.value == value).label}`;

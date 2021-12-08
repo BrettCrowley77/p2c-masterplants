@@ -12,6 +12,7 @@ import Col from 'react-bootstrap/Col';
 
 import SelectFilter from './SelectFilter.js'
 import SelectSeason from './SelectSeason.js'
+import SelectHeight from './SelectHeight.js'
 
 const paperStyles = makeStyles((theme) => ({
     root: {
@@ -28,7 +29,8 @@ const paperStyles = makeStyles((theme) => ({
   }));
 
 function Module3({ Item, filterPollinators, pollinators, setPollinators, filterColours, colours, setColours, filterSoilMoisture, soilMoisture, setSoilMoisture, filterSunExposure, sunExposure, setSunExposure, filterPlantType, plantTypes, setPlantTypes,
-                    dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate, setMinDate, setMaxDate, wrapperSetDateSlider, handleDateChange, handleNext }) {
+                    dates, dateSlider, setDateSlider, minDateValue, maxDateValue, minDate, maxDate, setMinDate, setMaxDate, handleNext,
+                    heightSlider, setHeightSlider, minHeightValue, maxHeightValue, minHeight, maxHeight, setMinHeight, setMaxHeight }) {
 
     const paperClasses = paperStyles();
 
@@ -82,7 +84,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                                         <SelectFilter filterOptions={ filterSunExposure } stateVar={ sunExposure } setStateVar={ setSunExposure } placeholder={ "(Sun exposure)" } />
                                     </Item>
                             </Grid>
-                            <Grid item xs={12} lg={6}>
+                            {/* <Grid item xs={12} lg={6}>
                                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
                                         Choose one or more pollinators:
                                     </Typography>
@@ -90,7 +92,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                                     <Item>
                                         <SelectFilter filterOptions={ filterPollinators } stateVar={ pollinators } setStateVar={ setPollinators } placeholder={ "(Pollinator)" } />
                                     </Item>
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={12} lg={6}>
                                     <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
                                         Choose one or more flower colours:
@@ -106,8 +108,15 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                                 </Typography>
                                 <br></br>
                                 <SelectSeason dates={ dates } dateSlider={ dateSlider } setDateSlider={ setDateSlider } minDateValue={ minDateValue } maxDateValue={ maxDateValue }
-                                                    minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate } wrapperSetDateSlider={ wrapperSetDateSlider }
-                                                    handleDateChange={ handleDateChange } />    
+                                                    minDate={ minDate } maxDate={ maxDate } setMinDate={ setMinDate } setMaxDate={ setMaxDate } />    
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
+                                    Choose plant height range:
+                                </Typography>
+                                <br></br>
+                                <SelectHeight heightSlider={ heightSlider } setHeightSlider={ setHeightSlider } minHeightValue={ minHeightValue } maxHeightValue={ maxHeightValue }
+                                                    minHeight={ minHeight } maxHeight={ maxHeight } setMinHeight={ setMinHeight } setMaxHeight={ setMaxHeight } />    
                             </Grid>
                         </Grid>
                     </Paper>

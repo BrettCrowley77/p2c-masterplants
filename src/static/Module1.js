@@ -20,7 +20,7 @@ function Module1({ Item, handleNext }) {
                     <Grid item md={6} sm={12}>
                             <Item>
                                 <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
-                                    Welcome to Pollinator Partnership Canada's Pollinator Plant Selection Tool, <em>Find Your Roots</em>. The tool is based on the lists of native plants that support pollinators from our <a href="https://pollinatorpartnership.ca/en/ecoregional-planting-guides" target="_blank">Ecoregional Planting guide series</a>. Guides contain detailed information on pollinators, how to help them, and feature specific ecoregional information. Use this tool to make it easier to create customized plant lists for your region and requirements.
+                                    Welcome to Pollinator Partnership Canada's Pollinator Plant Selection Tool, <em>Find Your Roots</em>. The tool is based on the lists of native plants that support pollinators from our <a style={{ color: '#6D8764' }} href="https://pollinatorpartnership.ca/en/ecoregional-planting-guides" target="_blank">Ecoregional Planting guide series</a>. Guides contain detailed information on pollinators, how to help them, and feature specific ecoregional information. Use this tool to make it easier to create customized plant lists for your region and requirements.
                                 </Typography>
                                 <br></br>
                                 <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
@@ -28,7 +28,7 @@ function Module1({ Item, handleNext }) {
                                 </Typography>
                                 <br></br>
                                 <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
-                                    For App feedback contact Pollinator Partnership Canada at <a href="mailto: info@pollinatorpartnership.ca">info@pollinatorpartnership.ca</a>.
+                                    For App feedback contact Pollinator Partnership Canada at <a style={{ color: '#6D8764' }} href="mailto: info@pollinatorpartnership.ca">info@pollinatorpartnership.ca</a>.
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} >
                                     <Box sx={{ flex: '1 1 auto' }} />
