@@ -30,7 +30,7 @@ export default function SelectHeight({ heightSlider, setHeightSlider, minHeightV
     <Box style={{ marginLeft: 20, marginRight: 20 }}>
         <ThemeProvider theme={HeightSliderTheme}>
             <Typography id="height-slider" variant="body2" gutterBottom>
-            {minHeight == maxHeight ? minHeight : minHeight+" - "+maxHeight}
+            {minHeight == maxHeight ? minHeight : minHeight+" - "+maxHeight+" metres"}
             </Typography>
             <Slider sx={{ fontSize: 12 }}
             min={minHeightValue}

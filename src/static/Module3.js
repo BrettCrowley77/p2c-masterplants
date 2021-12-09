@@ -112,7 +112,7 @@ function Module3({ Item, filterPollinators, pollinators, setPollinators, filterC
                             </Grid>
                             <Grid item xs={12} lg={6}>
                                 <Typography variant="body2" component="div" sx={{ flexGrow: 1 }}>
-                                    Choose plant height range:
+                                    Choose plant height range (metres):
                                 </Typography>
                                 <br></br>
                                 <SelectHeight heightSlider={ heightSlider } setHeightSlider={ setHeightSlider } minHeightValue={ minHeightValue } maxHeightValue={ maxHeightValue }

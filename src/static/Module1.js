@@ -30,6 +30,10 @@ function Module1({ Item, handleNext }) {
                                 <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
                                     For App feedback contact Pollinator Partnership Canada at <a style={{ color: '#6D8764' }} href="mailto: info@pollinatorpartnership.ca">info@pollinatorpartnership.ca</a>.
                                 </Typography>
+                                <br></br>
+                                <Typography variant="body1" component="div" spacing={3} sx={{ flexGrow: 1 }}>
+                                    Funding for this plant selector tool was provided by <a style={{ color: '#6D8764' }} href="https://www.syngenta.ca/" target="_blank">Syngenta Canada Inc.</a>.
+                                </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }} >
                                     <Box sx={{ flex: '1 1 auto' }} />
                                     <Button variant="outlined" sx={{ color: "#4D4F53", borderColor: "#4D4F53" }} onClick={handleNext}>
